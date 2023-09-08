@@ -1,32 +1,26 @@
 <?php
 include "conn.php";
 
-// Function to search for contacts by name, email, or phone number
 function searchContacts($searchTerm) {
    global $conn;
 
-   // Define the SQL query to search for contacts
    $sql = "SELECT * FROM `contacts` WHERE 
            `first_name` LIKE '%$searchTerm%' OR
            `last_name` LIKE '%$searchTerm%' OR
            `email` LIKE '%$searchTerm%' OR
            `phone_number` LIKE '%$searchTerm%'";
 
-   // Execute the query
    $result = mysqli_query($conn, $sql);
 
    if ($result) {
-      // Fetch and return the search results as an array of rows
       $searchResults = mysqli_fetch_all($result, MYSQLI_ASSOC);
       return $searchResults;
    } else {
-      // Handle the query error here
       echo "Search failed: " . mysqli_error($conn);
       return [];
    }
 }
 
-// Check if the search form is submitted
 if (isset($_POST["search"])) {
    $searchTerm = mysqli_real_escape_string($conn, $_POST['searchTerm']);
    $searchResults = searchContacts($searchTerm);
@@ -35,8 +29,7 @@ if (isset($_POST["search"])) {
 
 <!DOCTYPE html>
 <html lang="en">
-    <link rel="stylesheet" type="text/css" href="styles.css">
-
+<link rel="stylesheet" type="text/css" href="styles.css">
 <body> 
   <header>
     <h1>My Contacts Hub</h1>
@@ -46,7 +39,7 @@ if (isset($_POST["search"])) {
         <form method="post">
             <input type="text" name="searchTerm" placeholder="Enter name, email, or phone number" required>
             <input type="submit" name="search" value="Search">
-            <a href="index.php">Cancel</a>
+            <a href="dashboard.php">Cancel</a>
         </form>
 
         <?php
@@ -58,7 +51,10 @@ if (isset($_POST["search"])) {
                 echo "Name: " . $contact['first_name'] . " " . $contact['last_name'] . "<br>";
                 echo "Email: " . $contact['email'] . "<br>";
                 echo "Phone: " . $contact['phone_number'] . "<br>";
-                echo "<br>";
+                echo '<div class="action-buttons">';
+                echo '<a href="edit.php?contact_id=' . $contact["contact_id"] . '">Edit</a>';
+                echo '<a href="delete.php?contact_id=' . $contact["contact_id"] . '">Delete</a>';
+                echo '</div>';
                 echo "</li>";
             }
             echo "</ul>";
