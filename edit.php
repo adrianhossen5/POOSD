@@ -1,6 +1,7 @@
 <?php
 include "conn.php";
-$id = $_GET["id"];
+
+$contact_id = $_GET["contact_id"];
 
 if (isset($_POST["submit"])) {
   $first_name = $_POST['first_name'];
@@ -9,12 +10,12 @@ if (isset($_POST["submit"])) {
   $phone_number = $_POST['phone_number'];
 
   $sql = "UPDATE `contacts` SET `first_name`='$first_name',`last_name`='$last_name',`email`='$email',`phone_number`='$phone_number' 
-  WHERE id = $id";
+  WHERE contact_id = $contact_id";
   
   $result = mysqli_query($conn, $sql);
 
   if ($result) {
-    header("Location: index.php");
+    header("Location: dashboard.php");
   } else {
     echo "Failed: " . mysqli_error($conn);
   }
@@ -41,7 +42,7 @@ if (isset($_POST["submit"])) {
     </div>
 
     <?php
-    $sql = "SELECT * FROM `contacts` WHERE id = $id LIMIT 1";
+    $sql = "SELECT * FROM `contacts` WHERE contact_id = $contact_id LIMIT 1";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
     ?>
@@ -70,7 +71,7 @@ if (isset($_POST["submit"])) {
 
         <div>
           <input type="submit" name="submit" value="Update">
-          <a href="index.php">Cancel</a>
+          <a href="dashboard.php">Cancel</a>
         </div>
       </form>
     </div>
