@@ -1,24 +1,32 @@
 <?php
+session_start();
 include "conn.php";
 
+if (!isset($_SESSION['user_id'])) {
+    header("Location: index.php"); 
+    exit();
+}
+
 if (isset($_POST["submit"])) {
-   $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
-   $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
-   $email = mysqli_real_escape_string($conn, $_POST['email']);
-   $phone_number = mysqli_real_escape_string($conn, $_POST['phone_number']);
+    $user_id = $_SESSION['user_id']; 
 
-   $sql = " INSERT INTO `contacts`(`id`, `first_name`, `last_name`, `email`, `phone_number`) 
-   VALUES (NULL, '$first_name', '$last_name', '$email', '$phone_number') ";
+    $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
+    $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $phone_number = mysqli_real_escape_string($conn, $_POST['phone_number']);
 
-   $result = mysqli_query($conn, $sql);
+    $sql = "INSERT INTO `contacts` (`contact_id`, `user_id`, `first_name`, `last_name`, `email`, `phone_number`) 
+            VALUES (NULL, ?, ?, ?, ?, ?)";
 
-   if ($result) {
-      header("Location: index.php");
-      exit(); 
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("issss", $user_id, $first_name, $last_name, $email, $phone_number);
 
-   } else {
-      echo "Failed: " . mysqli_error($conn);
-   }
+    if ($stmt->execute()) {
+        header("Location: dashboard.php");
+        exit();
+    } else {
+        echo "Failed: " . mysqli_error($conn);
+    }
 }
 ?>
 
@@ -50,7 +58,7 @@ if (isset($_POST["submit"])) {
             <input type="tel" id="phone_number" name="phone_number" placeholder="Enter your phone number (000-000-0000)" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
 
             <input type="submit" name="submit" value="Add">
-            <a href="index.php">Cancel</a>
+            <a href="dashboard.php">Cancel</a>
 
         </form>
     </div>
