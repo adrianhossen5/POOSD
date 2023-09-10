@@ -1,16 +1,20 @@
 <?php
 include "conn.php";
 
-function searchContacts($searchTerm) {
+function searchContacts($searchTerm, $user_id) {
    global $conn;
 
-   $sql = "SELECT * FROM `contacts` WHERE 
-           `first_name` LIKE '%$searchTerm%' OR
-           `last_name` LIKE '%$searchTerm%' OR
-           `email` LIKE '%$searchTerm%' OR
-           `phone_number` LIKE '%$searchTerm%'";
+   $sql = "SELECT * FROM `contacts` WHERE `user_id` = ? AND (
+           `first_name` LIKE ? OR
+           `last_name` LIKE ? OR
+           `email` LIKE ? OR
+           `phone_number` LIKE ?)";
 
-   $result = mysqli_query($conn, $sql);
+   $stmt = $conn->prepare($sql);
+   $searchTerm = "%" . $searchTerm . "%"; // Add wildcard characters for partial search
+   $stmt->bind_param("issss", $user_id, $searchTerm, $searchTerm, $searchTerm, $searchTerm);
+   $stmt->execute();
+   $result = $stmt->get_result();
 
    if ($result) {
       $searchResults = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -21,11 +25,20 @@ function searchContacts($searchTerm) {
    }
 }
 
-if (isset($_POST["search"])) {
-   $searchTerm = mysqli_real_escape_string($conn, $_POST['searchTerm']);
-   $searchResults = searchContacts($searchTerm);
+session_start();
+if (isset($_SESSION['user_id'])) {
+   $user_id = $_SESSION['user_id'];
+
+   if (isset($_POST["search"])) {
+       $searchTerm = mysqli_real_escape_string($conn, $_POST['searchTerm']);
+       $searchResults = searchContacts($searchTerm, $user_id);
+   }
+} else {
+   header("Location: index.php"); // Redirect to the login page if the user is not logged in
+   exit();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

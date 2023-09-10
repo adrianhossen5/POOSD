@@ -1,28 +1,32 @@
 <?php
-// session_start();
+session_start();
 include "conn.php";
 
+if (!isset($_SESSION['user_id'])) {
+    header("Location: index.php"); 
+    exit();
+}
+
 if (isset($_POST["submit"])) {
+    $user_id = $_SESSION['user_id']; 
 
-// $user_id = $_SESSION['user_id'];
-$user_id = 1;
+    $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
+    $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $phone_number = mysqli_real_escape_string($conn, $_POST['phone_number']);
 
-   $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
-   $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
-   $email = mysqli_real_escape_string($conn, $_POST['email']);
-   $phone_number = mysqli_real_escape_string($conn, $_POST['phone_number']);
+    $sql = "INSERT INTO `contacts` (`contact_id`, `user_id`, `first_name`, `last_name`, `email`, `phone_number`) 
+            VALUES (NULL, ?, ?, ?, ?, ?)";
 
-   $sql = " INSERT INTO `contacts`(`first_name`, `last_name`, `email`, `phone_number`, `user_id`) 
-   VALUES ('$first_name', '$last_name', '$email', '$phone_number', $user_id) ";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("issss", $user_id, $first_name, $last_name, $email, $phone_number);
 
-   $result = mysqli_query($conn, $sql);
-
-   if ($result) {
-      header("Location: dashboard.php");
-      exit(); 
-   } else {
-      echo "Failed: " . mysqli_error($conn);
-   }
+    if ($stmt->execute()) {
+        header("Location: dashboard.php");
+        exit();
+    } else {
+        echo "Failed: " . mysqli_error($conn);
+    }
 }
 ?>
 

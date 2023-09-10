@@ -101,6 +101,7 @@ a[href^="edit.php"], a[href^="delete.php"] {
   margin-right: 5px;
 }
 
+
 a:hover {
   opacity: 0.8;
 }

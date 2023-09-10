@@ -1,17 +1,16 @@
 <?php
 session_start();
 
-// Check if the user is not logged in, redirect to the login page
-// if (!isset($_SESSION['user_id'])) {
-//     header("Location: index.php"); // Redirect to your login page
-//     exit();
-// }
+if (!isset($_SESSION['user_id'])) {
+    header("Location: index.php"); 
+    exit();
+}
 
 include "conn.php";
 
 // Get the user ID from the session
-// $user_id = $_SESSION['user_id'];
-$user_id = 1;
+$user_id = $_SESSION['user_id'];
+
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +40,8 @@ $user_id = 1;
 
     <a href="add_new.php">Add New Contact</a>
     <a href="search.php">Search</a>
-    <a href="index.php">out</a>
+    <a href="index.php" class="logout-button">out</a>
+
 
     <table>
       <thead>
@@ -56,7 +56,7 @@ $user_id = 1;
       </thead>
       <tbody>
         <?php
-        $sql = "SELECT * FROM `contacts` WHERE `user_id` = $user_id";
+        $sql = "SELECT * FROM `contacts`";
         $result = mysqli_query($conn, $sql);
         while ($row = mysqli_fetch_assoc($result)) {
         ?>
