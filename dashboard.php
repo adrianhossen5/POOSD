@@ -1,15 +1,13 @@
 <?php
 session_start();
 
-// Check if the user is not logged in, redirect to the login page
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php"); // Redirect to your login page
+    header("Location: index.php"); 
     exit();
 }
 
 include "conn.php";
 
-// Get the user ID from the session
 $user_id = $_SESSION['user_id'];
 
 ?>
@@ -41,7 +39,8 @@ $user_id = $_SESSION['user_id'];
 
     <a href="add_new.php">Add New Contact</a>
     <a href="search.php">Search</a>
-    <a href="index.php">out</a>
+    <a href="index.php" class="logout-button">out</a>
+
 
     <table>
       <thead>
@@ -56,23 +55,27 @@ $user_id = $_SESSION['user_id'];
       </thead>
       <tbody>
         <?php
-        $sql = "SELECT * FROM `contacts`";
-        $result = mysqli_query($conn, $sql);
-        while ($row = mysqli_fetch_assoc($result)) {
-        ?>
-          <tr>
-            <td><?php echo $row["contact_id"] ?></td>
-            <td><?php echo $row["first_name"] ?></td>
-            <td><?php echo $row["last_name"] ?></td>
-            <td><?php echo $row["email"] ?></td>
-            <td><?php echo $row["phone_number"] ?></td>
-            <td>
-              <a href="edit.php?contact_id=<?php echo $row["contact_id"] ?>">Edit</a>
-              <a href="delete.php?contact_id=<?php echo $row["contact_id"] ?>">Delete</a>
-            </td>
-          </tr>
-        <?php
-        }
+            $sql = "SELECT * FROM `contacts` WHERE user_id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            while ($row = $result->fetch_assoc()) {
+            ?>
+              <tr>
+                <td><?php echo $row["contact_id"] ?></td>
+                <td><?php echo $row["first_name"] ?></td>
+                <td><?php echo $row["last_name"] ?></td>
+                <td><?php echo $row["email"] ?></td>
+                <td><?php echo $row["phone_number"] ?></td>
+                <td>
+                  <a href="edit.php?contact_id=<?php echo $row["contact_id"] ?>">Edit</a>
+                  <a href="delete.php?contact_id=<?php echo $row["contact_id"] ?>">Delete</a>
+                </td>
+              </tr>
+            <?php
+             }
         ?>
       </tbody>
     </table>
