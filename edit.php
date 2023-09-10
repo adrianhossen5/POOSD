@@ -8,7 +8,8 @@ if (isset($_POST["submit"])) {
   $email = $_POST['email'];
   $phone_number = $_POST['phone_number'];
 
-  $sql = "UPDATE `contacts` SET `first_name`='$first_name',`last_name`='$last_name',`email`='$email',`phone_number`='$phone_number' 
+  $sql = "UPDATE `contacts` SET `first_name`='$first_name',
+  `last_name`='$last_name',`email`='$email',`phone_number`='$phone_number' 
   WHERE id = $id";
   
   $result = mysqli_query($conn, $sql);

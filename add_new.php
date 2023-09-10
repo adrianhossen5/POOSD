@@ -1,21 +1,25 @@
 <?php
+// session_start();
 include "conn.php";
 
 if (isset($_POST["submit"])) {
+
+// $user_id = $_SESSION['user_id'];
+$user_id = 1;
+
    $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
    $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
    $email = mysqli_real_escape_string($conn, $_POST['email']);
    $phone_number = mysqli_real_escape_string($conn, $_POST['phone_number']);
 
-   $sql = " INSERT INTO `contacts`(`id`, `first_name`, `last_name`, `email`, `phone_number`) 
-   VALUES (NULL, '$first_name', '$last_name', '$email', '$phone_number') ";
+   $sql = " INSERT INTO `contacts`(`first_name`, `last_name`, `email`, `phone_number`, `user_id`) 
+   VALUES ('$first_name', '$last_name', '$email', '$phone_number', $user_id) ";
 
    $result = mysqli_query($conn, $sql);
 
    if ($result) {
-      header("Location: index.php");
+      header("Location: dashboard.php");
       exit(); 
-
    } else {
       echo "Failed: " . mysqli_error($conn);
    }
@@ -50,8 +54,7 @@ if (isset($_POST["submit"])) {
             <input type="tel" id="phone_number" name="phone_number" placeholder="Enter your phone number (000-000-0000)" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
 
             <input type="submit" name="submit" value="Add">
-            <a href="index.php">Cancel</a>
-
+            <a href="dashboard.php">Cancel</a>
         </form>
     </div>
 </body>

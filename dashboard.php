@@ -2,16 +2,16 @@
 session_start();
 
 // Check if the user is not logged in, redirect to the login page
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php"); // Redirect to your login page
-    exit();
-}
+// if (!isset($_SESSION['user_id'])) {
+//     header("Location: index.php"); // Redirect to your login page
+//     exit();
+// }
 
 include "conn.php";
 
 // Get the user ID from the session
-$user_id = $_SESSION['user_id'];
-
+// $user_id = $_SESSION['user_id'];
+$user_id = 1;
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +56,7 @@ $user_id = $_SESSION['user_id'];
       </thead>
       <tbody>
         <?php
-        $sql = "SELECT * FROM `contacts`";
+        $sql = "SELECT * FROM `contacts` WHERE `user_id` = $user_id";
         $result = mysqli_query($conn, $sql);
         while ($row = mysqli_fetch_assoc($result)) {
         ?>
