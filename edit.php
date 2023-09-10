@@ -9,8 +9,9 @@ if (isset($_POST["submit"])) {
   $email = $_POST['email'];
   $phone_number = $_POST['phone_number'];
 
-  $sql = "UPDATE `contacts` SET `first_name`='$first_name',`last_name`='$last_name',`email`='$email',`phone_number`='$phone_number' 
-  WHERE id = $id";
+  $sql = "UPDATE `contacts` SET `first_name`='$first_name',`last_name`='$last_name',
+  `email`='$email',`phone_number`='$phone_number' 
+  WHERE `id`='$contact_id'";
   
   $result = mysqli_query($conn, $sql);
 
@@ -42,9 +43,12 @@ if (isset($_POST["submit"])) {
     </div>
 
     <?php
-    $sql = "SELECT * FROM `contacts` WHERE contact_id = $contact_id LIMIT 1";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
+      $sql = "SELECT * FROM `contacts` WHERE id = ?";
+      $stmt = $conn->prepare($sql);
+      $stmt->bind_param("s", $contact_id);
+      $stmt->execute();
+      $result = $stmt->get_result();
+      $row = $result->fetch_assoc();
     ?>
 
     <div>

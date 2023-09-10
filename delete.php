@@ -2,7 +2,8 @@
 include "conn.php";
 
 $contact_id = $_GET["contact_id"];
-$sql = "DELETE FROM `contacts` WHERE contact_id = $contact_id";
+
+$sql = "DELETE FROM `contacts` WHERE `id` = '$contact_id'";
 $result = mysqli_query($conn, $sql);
 
 if ($result) {

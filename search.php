@@ -12,7 +12,7 @@ function searchContacts($searchTerm, $user_id) {
 
    $stmt = $conn->prepare($sql);
    $searchTerm = "%" . $searchTerm . "%"; // Add wildcard characters for partial search
-   $stmt->bind_param("issss", $user_id, $searchTerm, $searchTerm, $searchTerm, $searchTerm);
+   $stmt->bind_param("sssss", $user_id, $searchTerm, $searchTerm, $searchTerm, $searchTerm);
    $stmt->execute();
    $result = $stmt->get_result();
 
@@ -26,8 +26,8 @@ function searchContacts($searchTerm, $user_id) {
 }
 
 session_start();
-if (isset($_SESSION['user_id'])) {
-   $user_id = $_SESSION['user_id'];
+if (isset($_SESSION['id'])) {
+   $user_id = $_SESSION['id'];
 
    if (isset($_POST["search"])) {
        $searchTerm = mysqli_real_escape_string($conn, $_POST['searchTerm']);
@@ -65,8 +65,8 @@ if (isset($_SESSION['user_id'])) {
                 echo "Email: " . $contact['email'] . "<br>";
                 echo "Phone: " . $contact['phone_number'] . "<br>";
                 echo '<div class="action-buttons">';
-                echo '<a href="edit.php?contact_id=' . $contact["contact_id"] . '">Edit</a>';
-                echo '<a href="delete.php?contact_id=' . $contact["contact_id"] . '">Delete</a>';
+                echo '<a href="edit.php?contact_id=' . $contact["id"] . '">Edit</a>';
+                echo '<a href="delete.php?contact_id=' . $contact["id"] . '">Delete</a>';
                 echo '</div>';
                 echo "</li>";
             }

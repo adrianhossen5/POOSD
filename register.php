@@ -3,10 +3,10 @@ include "conn.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $username = $_POST["username"];
+    $username = $_POST["user_name"];
     $password = $_POST["password"];
     $confirm_password = $_POST["confirm_password"];
-    $email = $_POST["email"]; 
+    $email = $_POST["email"];
     $agree = isset($_POST["agree"]) ? 1 : 0;
 
     $errors = [];
@@ -14,158 +14,253 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($password !== $confirm_password) {
         $errors[] = "Passwords do not match. Please try again.";
     } else {
+
+        // check if username already exists
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO `users` (`username`, `password_hash`, `email`) 
-        VALUES (?, ?, ?)";
+        $sql = "INSERT INTO `users` (`id`, `username`, `password_hash`, `email`) 
+        VALUES (UUID(), ?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sss", $username, $hashed_password, $email);
 
-    if ($stmt->execute()) {
-        echo "Registration successful!";
-        header("Location: index.php");
+        if ($stmt->execute()) {
+            echo "Registration successful!";
+            header("Location: index.php");
             exit;
-    } else {
-        echo "Error: " . $stmt->error;
-    }
-    $stmt->close();
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        $stmt->close();
     }
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Registration</title>
-    <link rel="stylesheet" href="styles.css">
-        <header>
+    <header class="register-header" style="text-align:center; padding-top: 56px;">
         <h1>My Contacts Hub</h1>
     </header>
-    
-    <title>Login</title>
+</head>
+
+<body>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+        @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: Raleway, sans-serif;
         }
 
-        h1 {
-            color: #ffffff;
+        body {
+            background: linear-gradient(90deg, #C7C5F4, #776BCC);
         }
 
-        header {
-            background-color: #007bff;
-            text-align: center;
-            padding: 20px 0;
-            color: #fff;
-        }
-
-        .registration-container {
-            background-color: #ffffff;
-            width: 400px;
-            margin: 100px auto;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .registration-title {
-            font-size: 24px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .login-form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        input[type="text"],
-        input[type="password"],
-        input[type="confirm_password"] {
-            width: 95%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            font-size: 16px;
-        }
-
-        input[type="checkbox"] {
-            margin-right: 5px;
-        }
-
-        .remember-me {
-            font-size: 14px;
-            margin-bottom: 15px;
+        .container_index {
             display: flex;
             align-items: center;
+            justify-content: center;
+            min-height: 70vh;
         }
 
-        .remember-me label {
-            margin-right: 5px;
+        .screen {
+            background: linear-gradient(90deg, #5D54A4, #7C78B8);
+            position: relative;
+            height: 575px;
+            width: 360px;
+            box-shadow: 0px 0px 24px #5C5696;
         }
 
-        .login-button {
-            background-color: #007BFF;
-            color: #ffffff;
-            font-size: 16px;
-            padding: 10px;
+        .screen-content {
+            z-index: 1;
+            position: relative;
+            height: 100%;
+        }
+
+        .screen-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+            -webkit-clip-path: inset(0 0 0 0);
+            clip-path: inset(0 0 0 0);
+        }
+
+        .screen-background-shape {
+            transform: rotate(45deg);
+            position: absolute;
+        }
+
+        .screen-background-shape1 {
+            height: 400px;
+            width: 520px;
+            background: #FFF;
+            top: -50px;
+            right: 120px;
+            border-radius: 0 72px 0 0;
+        }
+
+        .screen-background-shape2 {
+            height: 220px;
+            width: 220px;
+            background: #6C63AC;
+            top: -172px;
+            right: 0;
+            border-radius: 32px;
+        }
+
+        .screen-background-shape3 {
+            height: 540px;
+            width: 190px;
+            background: linear-gradient(270deg, #5D54A4, #6A679E);
+            top: -24px;
+            right: 0;
+            border-radius: 32px;
+        }
+
+        .screen-background-shape4 {
+            height: 400px;
+            width: 200px;
+            background: #7E7BB9;
+            top: 420px;
+            right: 50px;
+            border-radius: 60px;
+        }
+
+        .register {
+            width: 320px;
+            padding-left: 36px;
+            padding-top: 64px;
+        }
+
+        .register-field {
+            padding: 20px 0px;
+            position: relative;
+        }
+
+        .register-icon {
+            position: absolute;
+            top: 30px;
+            color: #7875B5;
+        }
+
+        .register-input {
             border: none;
-            border-radius: 3px;
-            cursor: pointer;
+            font-size: 16px;
+            border-bottom: 2px solid #D1D1D4;
+            color: #FFF;
+            background: none;
+            padding: 10px;
+            padding-left: 12px;
+            font-weight: 700;
+            width: 100%;
+            transition: .2s;
         }
 
-        .login-link {
+        .register-input:active,
+        .register-input:focus,
+        .register-input:hover {
+            outline: none;
+            border-bottom-color: #6A679E;
+        }
+
+        .register-submit {
+            background: #fff;
             text-align: center;
-            margin-top: 15px;
+            font-size: 16px;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 26px;
+            border: 1px solid #D4D3E8;
+            text-transform: uppercase;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Center horizontally */
+            width: 100%;
+            color: #4C489D;
+            box-shadow: 0px 2px 2px #5C5696;
+            cursor: pointer;
+            transition: .2s;
         }
 
-        /* .login-link a {
-            text-decoration: none;
-            
-        } */
+        .register-header {
+            background: #fff;
+            text-align: center;
+            font-size: 16px;
+            padding: 48px;
+            border: 1px solid #D4D3E8;
+            text-transform: uppercase;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            color: #4C489D;
+            box-shadow: 0px 2px 2px #5C5696;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .register-submit:hover {
+            border-color: #6A679E;
+            outline: none;
+        }
+
+        .button-icon {
+            font-size: 24px;
+            color: #7875B5;
+        }
+
+        input::placeholder {
+            color: white;
+        }
     </style>
-</head>
-<body>
-    <div class="registration-container">
-        <h2>Sign Up</h2>
-        <form method="post">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" placeholder="Enter your username" required><br>
-
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" required><br>
-
-            <label for="confirm_password">Confirm Password:</label>
-            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required><br>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" required><br>
-            
-            <label for="agree">
-                <input type="checkbox" id="agree" name="agree" required> I agree to the terms and conditions
-            </label><br>
-
-            <input type="submit" value="Sign Up">
-            <div class="login-link">
-                <p>Already have an account? <a href="index.php">Login</a></p>
+    <div class="container_index">
+        <div class="screen">
+            <div class="screen-content">
+                <form class="register" method="post">
+                    <div class="register-field">
+                        <input type="text" class="register-input" id="user_name" name="user_name"
+                            placeholder="Enter your username" required>
+                    </div>
+                    <div class="register-field">
+                        <input type="password" class="register-input" id="password" name="password"
+                            placeholder="Enter your password" required>
+                    </div>
+                    <div class="register-field">
+                        <input type="password" class="register-input" id="confirm_password"
+                            name="confirm_password" placeholder="Confirm your password" required>
+                    </div>
+                    <div class="register-field">
+                        <input type="text" class="register-input" id="email" name="email" 
+                        placeholder="Enter your email"
+                            required>
+                    </div>
+                    <button class="register-button register-submit" type="submit" name="submit">
+                        Register <i class="button-icon fas fa-chevron-right"></i>
+                    </button>
+                    <div style="padding-left: 12px; padding-top: 24px; ">
+                        <p style="color: #FFF; font-weight: 650;">Don't have an account?
+                            <a style="color: #FFF" href="index.php">Log In</a>
+                        </p>
+                        <i class="button-icon fas fa-chevron-right"></i>
+                    </div>
+                </form>
             </div>
-        </form>
+            <div class="screen-background">
+                <span class="screen-background-shape screen-background-shape4"></span>
+                <span class="screen-background-shape screen-background-shape3"></span>
+                <span class="screen-background-shape screen-background-shape2"></span>
+            </div>
+        </div>
     </div>
 </body>
 </html>

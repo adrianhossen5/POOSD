@@ -2,24 +2,23 @@
 session_start();
 include "conn.php";
 
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['id'])) {
     header("Location: index.php"); 
     exit();
 }
 
 if (isset($_POST["submit"])) {
-    $user_id = $_SESSION['user_id']; 
-
+    $user_id = $_SESSION['id']; 
     $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
     $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $phone_number = mysqli_real_escape_string($conn, $_POST['phone_number']);
 
-    $sql = "INSERT INTO `contacts` (`contact_id`, `user_id`, `first_name`, `last_name`, `email`, `phone_number`) 
-            VALUES (NULL, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO `contacts` (`id`, `user_id`, `first_name`, `last_name`, `email`, `phone_number`) 
+            VALUES (UUID(), ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("issss", $user_id, $first_name, $last_name, $email, $phone_number);
+    $stmt->bind_param("sssss", $user_id, $first_name, $last_name, $email, $phone_number);
 
     if ($stmt->execute()) {
         header("Location: dashboard.php");
@@ -59,6 +58,7 @@ if (isset($_POST["submit"])) {
 
             <input type="submit" name="submit" value="Add">
             <a href="dashboard.php">Cancel</a>
+
         </form>
     </div>
 </body>
