@@ -1,12 +1,12 @@
 <?php
 include "conn.php";
 
-$id = $_GET["id"];
-$sql = "DELETE FROM `contacts` WHERE id = $id";
+$contact_id = $_GET["contact_id"];
+$sql = "DELETE FROM `contacts` WHERE contact_id = $contact_id";
 $result = mysqli_query($conn, $sql);
 
 if ($result) {
-  header("Location: index.php?msg=Data deleted successfully");
+  header("Location: dashboard.php");
 } else {
   echo "Failed: " . mysqli_error($conn);
 }
