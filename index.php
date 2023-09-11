@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 session_start();
 
 include "conn.php";
@@ -75,150 +75,10 @@ if (isset($_POST['submit'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <header>
-        <h1>My Contacts Hub</h1>
-    </header>
-    
-    <title>Login</title>
-    <style>
-        body {
-            font-family: MonoLisa, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            color: #ffffff;
-        }
-
-        header {
-            background-color: #007bff;
-            text-align: center;
-            padding: 20px 0;
-            color: #fff;
-        }
-
-        .login-container {
-            background-color: #ffffff;
-            width: 400px;
-            margin: 100px auto;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .login-title {
-            font-size: 24px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .login-form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group {
-            margin-bottom: 30px;
-        }
-
-        label {
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        input[type="text"],
-        input[type="password"] {
-            width: 95%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            font-size: 16px;
-        }
-
-        input[type="checkbox"] {
-            margin-right: 5px;
-        }
-
-        .remember-me {
-            font-size: 14px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-
-        .remember-me label {
-            margin-right: 5px;
-        }
-
-        .login-button {
-            background-color: #007BFF;
-            color: #ffffff;
-            font-size: 16px;
-            padding: 10px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-
-        .register-link {
-            text-align: center;
-            margin-top: 15px;
-        }
-
-        .register-link a {
-            text-decoration: none;
-            color: #007BFF;
-        }
-    </style>
-</head>
-
-    
-<body>
-    
-    <div class="login-container">
-        <h2 class="login-title">Login</h2>
-        <form class="login-form" method="post">
-            <div class="form-group">
-                <label for="user_name">User Name:</label>
-                <input type="text" id="user_name" name="user_name" placeholder="Enter your user name" 
-                required>
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" 
-                required>
-            </div>
-
-            <div class="remember-me">
-                <a href="forgot.php" style="text-align:middle">Forgot Password?</a>
-            </div>  
-
-            <button class="login-button" type="submit" name="submit">Login</button>
-        </form>
-        <div class="register-link">
-            <p>Don't have an account? <a href="register.php">Register</a></p>
-        </div>
-    </div>
-</body>
-</html> -->
-
-<!DOCTYPE html>
-<html lang="en">
-
-
-<head>
-    <meta charset="UTF-8">
     <header class="login-header" style="text-align:center; padding-top: 56px;">
         <h1>My Contacts Hub</h1>
     </header>
 </head>
-
 <body>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
@@ -429,5 +289,4 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
 </body>
-
 </html>
