@@ -1,8 +1,9 @@
 <?php
 include "conn.php";
 
-function searchContacts($searchTerm, $user_id) {
+function searchContacts($user_id) {
    global $conn;
+   $searchTerm = $_POST["search"];
 
    $sql = "SELECT * FROM `contacts` WHERE `user_id` = ? AND (
            `first_name` LIKE ? OR
@@ -16,6 +17,12 @@ function searchContacts($searchTerm, $user_id) {
    $stmt->execute();
    $result = $stmt->get_result();
 
+   if ($result->num_rows === 0) {
+       $alert="<script>alert('This email is already taken!'); window.location='register.php';</script>";
+       echo $alert;
+       exit();
+   }
+
    if ($result) {
       $searchResults = mysqli_fetch_all($result, MYSQLI_ASSOC);
       return $searchResults;
@@ -28,10 +35,8 @@ function searchContacts($searchTerm, $user_id) {
 session_start();
 if (isset($_SESSION['id'])) {
    $user_id = $_SESSION['id'];
-
-   if (isset($_POST["search"])) {
-       $searchTerm = mysqli_real_escape_string($conn, $_POST['searchTerm']);
-       $searchResults = searchContacts($searchTerm, $user_id);
+   if (isset($_POST['search'])) {
+        $searchResults = searchContacts($user_id);
    }
 } else {
    header("Location: index.php"); // Redirect to the login page if the user is not logged in
@@ -229,57 +234,54 @@ if (isset($_SESSION['id'])) {
     </header>
 
     <div class="container_index">
-        
+
         <div class="screen" style="margin-top: 10px;">
-            
+
             <h2 style="text-align:center; padding-top: 36px; color: white;">Contact Search</h2>
             <div class="screen-content">
 
-                <form method="post" >
+                <form method="post">
 
-                <div class="search-field">
-                    <input type="text" class="search-input" id="user_name" name="user_name"
-                        placeholder="Enter your name, email or phone number please" required>
-                </div>
+                    <div class="search-field">
+                        <input type="text" class="search-input" id="search" name="search"
+                            placeholder="Name, email, or phone number">
+                    </div>
 
-                <div class="button-container">
-                    <button class="search-submit" style="margin-left: 13%;" type="submit" name="submit">
-                        Search
-                    </button>
-                
-
-                    <button class="search-submit" style="margin-left: 13%;" type="submit" name="submit">
-                        <a href="dashboard.php">Cancel</a>
-                    </button>
-                </div>
+                    <div class="button-container">
+                        <button class="search-submit" style="margin-left: 13%;" type="submit" name="submit">
+                            Search
+                        </button>
+                        <button class="search-submit" style="margin-left: 13%;">
+                            <a href="dashboard.php">Cancel</a>
+                        </button>
                 </form>
+            </div>
 
-                <?php
-                if (isset($searchResults) && !empty($searchResults)) {
-                    echo "<h3>Search Results:</h3>";
-                    echo "<ul>";
-                    foreach ($searchResults as $contact) {
-                        echo "<li>";
-                        echo "Name: " . $contact['first_name'] . " " . $contact['last_name'] . "<br>";
-                        echo "Email: " . $contact['email'] . "<br>";
-                        echo "Phone: " . $contact['phone_number'] . "<br>";
-                        echo '<div class="action-buttons">';
-                        echo '<a href="edit.php?contact_id=' . $contact["id"] . '">Edit</a>';
-                        echo '<a href="delete.php?contact_id=' . $contact["id"] . '">Delete</a>';
-                        echo '</div>';
-                        echo "</li>";
-                    }
-                    echo "</ul>";
-                } elseif (isset($searchResults) && empty($searchResults)) {
-                    echo "<p>No results found.</p>";
+            <?php
+            if (isset($searchResults) && !empty($searchResults)) {
+                echo "<h3>Search Results:</h3>";
+                echo "<ul>";
+                foreach ($searchResults as $contact) {
+                    echo "<li>";
+                    echo "Name: " . $contact['first_name'] . " " . $contact['last_name'] . "<br>";
+                    echo "Email: " . $contact['email'] . "<br>";
+                    echo "Phone: " . $contact['phone_number'] . "<br>";
+                    echo '<div class="action-buttons">';
+                    echo '<a href="edit.php?contact_id=' . $contact["id"] . '">Edit</a>';
+                    echo '<a href="delete.php?contact_id=' . $contact["id"] . '">Delete</a>';
+                    echo '</div>';
+                    echo "</li>";
                 }
-                ?>
-            </div>
-            <div class="screen-background">
-                <span class="screen-background-shape screen-background-shape4"></span>
-                <span class="screen-background-shape screen-background-shape3"></span>
-                <span class="screen-background-shape screen-background-shape2"></span>
-            </div>
+                echo "</ul>";
+            } elseif (isset($searchResults) && empty($searchResults)) {
+                echo "<p>No results found.</p>";
+            }
+            ?>
+        </div>
+        <div class="screen-background">
+            <span class="screen-background-shape screen-background-shape4"></span>
+            <span class="screen-background-shape screen-background-shape3"></span>
+            <span class="screen-background-shape screen-background-shape2"></span>
         </div>
     </div>
 </body>

@@ -20,12 +20,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
-        // echo "<script>alert('This username is already taken!');</script>";
 
         if ($result->num_rows === 1) {
             $alert="<script>alert('This username is already taken!'); window.location='register.php';</script>";
             echo $alert;
-            exit;
+            exit();
         }
         
         $stmt->close();
@@ -39,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result->num_rows === 1) {
             $alert="<script>alert('This email is already taken!'); window.location='register.php';</script>";
             echo $alert;
-            exit;
+            exit();
         }
 
         $stmt->close();
@@ -54,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->execute()) {
             echo "Registration successful!";
             header("Location: index.php");
-            exit;
+            exit();
         } else {
             echo "Error: " . $stmt->error;
         }
@@ -278,7 +277,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         Register <i class="button-icon fas fa-chevron-right"></i>
                     </button>
                     <div style="padding-left: 12px; padding-top: 24px; ">
-                        <p style="color: #FFF; font-weight: 650;">Don't have an account?
+                        <p style="color: #FFF; font-weight: 650;">Already have an account?
                             <a style="color: #FFF" href="index.php">Log In</a>
                         </p>
                         <i class="button-icon fas fa-chevron-right"></i>
