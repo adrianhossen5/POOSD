@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 70vh;
+            min-height: 90vh;
         }
 
         .screen {
@@ -158,7 +158,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             background: none;
             padding: 10px;
             padding-left: 12px;
-            font-weight: 700;
+            font-weight: 400;
             width: 100%;
             transition: .2s;
         }
@@ -226,6 +226,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container_index">
         <div class="screen">
             <div class="screen-content">
+                <h2 style="text-align:center; padding-top: 36px; color: white;">Register</h2>
+
                 <form class="register" method="post">
                     <div class="register-field">
                         <input type="text" class="register-input" id="user_name" name="user_name"
