@@ -240,10 +240,7 @@ $user_id = $_SESSION['id'];
             <a href="index.php" class="submit-button log-out-button">
               <span class="button-text">Log out</span>
             </a>
-
-
           </div>
-
         </form>
 
         <!-- </div> -->
@@ -297,7 +294,6 @@ $user_id = $_SESSION['id'];
             }
             ?>
           </tbody>
-
         </table>
       </div>
 

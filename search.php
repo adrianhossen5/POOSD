@@ -1,54 +1,49 @@
 <?php
 include "conn.php";
 
-function searchContacts($user_id) {
-   global $conn;
-   $searchTerm = $_POST["search"];
+function searchContacts($user_id)
+{
+    global $conn;
+    $searchTerm = $_POST["search"];
 
-   $sql = "SELECT * FROM `contacts` WHERE `user_id` = ? AND (
+    $sql = "SELECT * FROM `contacts` WHERE `user_id` = ? AND (
            `first_name` LIKE ? OR
            `last_name` LIKE ? OR
            `email` LIKE ? OR
            `phone_number` LIKE ?)";
 
-   $stmt = $conn->prepare($sql);
-   $searchTerm = "%" . $searchTerm . "%"; // Add wildcard characters for partial search
-   $stmt->bind_param("sssss", $user_id, $searchTerm, $searchTerm, $searchTerm, $searchTerm);
-   $stmt->execute();
-   $result = $stmt->get_result();
+    $stmt = $conn->prepare($sql);
+    $searchTerm = "%" . $searchTerm . "%"; // Add wildcard characters for partial search
+    $stmt->bind_param("sssss", $user_id, $searchTerm, $searchTerm, $searchTerm, $searchTerm);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-   if ($result->num_rows === 0) {
-       $alert="<script>alert('This email is already taken!'); window.location='register.php';</script>";
-       echo $alert;
-       exit();
-   }
-
-   if ($result) {
-      $searchResults = mysqli_fetch_all($result, MYSQLI_ASSOC);
-      return $searchResults;
-   } else {
-      echo "Search failed: " . mysqli_error($conn);
-      return [];
-   }
+    if ($result) {
+        $searchResults = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $searchResults;
+    } else {
+        echo "Search failed: " . mysqli_error($conn);
+        return [];
+    }
 }
 
 session_start();
 if (isset($_SESSION['id'])) {
-   $user_id = $_SESSION['id'];
-   if (isset($_POST['search'])) {
+    $user_id = $_SESSION['id'];
+    if (isset($_POST['search'])) {
         $searchResults = searchContacts($user_id);
-   }
+    }
 } else {
-   header("Location: index.php"); // Redirect to the login page if the user is not logged in
-   exit();
+    header("Location: index.php"); // Redirect to the login page if the user is not logged in
+    exit();
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
-<body> 
-<style>
+
+<body>
+    <style>
         @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
 
         * {
@@ -67,6 +62,13 @@ if (isset($_SESSION['id'])) {
             align-items: center;
             justify-content: center;
             min-height: 90vh;
+        }
+
+        .container_index2 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 55vh;
         }
 
         .screen {
@@ -160,7 +162,7 @@ if (isset($_SESSION['id'])) {
             background: none;
             padding: 10px;
             padding-left: 12px;
-            margin-left:10%;
+            margin-left: 10%;
             font-weight: 400;
             width: 80%;
             transition: .2s;
@@ -192,7 +194,7 @@ if (isset($_SESSION['id'])) {
             box-shadow: 0px 2px 2px #5C5696;
             cursor: pointer;
             transition: .2s;
-            
+
         }
 
         .search-header {
@@ -220,7 +222,8 @@ if (isset($_SESSION['id'])) {
 
 
         .button-icon {
-            text-align: center; /* Center the buttons horizontally */
+            text-align: center;
+            /* Center the buttons horizontally */
             margin-top: 20px;
         }
 
@@ -256,25 +259,51 @@ if (isset($_SESSION['id'])) {
                         </button>
                 </form>
             </div>
-
+        </div>
+        <div>
             <?php
             if (isset($searchResults) && !empty($searchResults)) {
-                echo "<h3>Search Results:</h3>";
-                echo "<ul>";
+                echo "<table style='margin-bottom:30px;'>
+                        <thead>
+                            <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>";
+
                 foreach ($searchResults as $contact) {
-                    echo "<li>";
-                    echo "Name: " . $contact['first_name'] . " " . $contact['last_name'] . "<br>";
-                    echo "Email: " . $contact['email'] . "<br>";
-                    echo "Phone: " . $contact['phone_number'] . "<br>";
-                    echo '<div class="action-buttons">';
-                    echo '<a href="edit.php?contact_id=' . $contact["id"] . '">Edit</a>';
-                    echo '<a href="delete.php?contact_id=' . $contact["id"] . '">Delete</a>';
-                    echo '</div>';
-                    echo "</li>";
+                    ?>
+                    <tr>
+                        <td>
+                            <?php echo $contact["first_name"] ?>
+                        </td>
+                        <td>
+                            <?php echo $contact["last_name"] ?>
+                        </td>
+                        <td>
+                            <?php echo $contact["email"] ?>
+                        </td>
+                        <td>
+                            <?php echo $contact["phone_number"] ?>
+                        </td>
+                        <td>
+
+                            <button class="edit-delete-button">
+                                <a href="edit.php?contact_id=<?php echo $contact["id"] ?>">Edit</a>
+                            </button>
+
+                            <button class="edit-delete-button">
+                                <a href="delete.php?contact_id=<?php echo $contact["id"] ?>">Delete</a>
+                            </button>
+
+                        </td>
+                    </tr>
+                    <?php
                 }
-                echo "</ul>";
-            } elseif (isset($searchResults) && empty($searchResults)) {
-                echo "<p>No results found.</p>";
             }
             ?>
         </div>
@@ -285,4 +314,5 @@ if (isset($_SESSION['id'])) {
         </div>
     </div>
 </body>
+
 </html>
