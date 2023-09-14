@@ -60,7 +60,7 @@ if (isset($_POST["submit"])) {
         .screen {
             background: linear-gradient(90deg, #5D54A4, #7C78B8);
             position: relative;
-            height: 600px;
+            height: 580px;
             width: 375px;
             box-shadow: 0px 0px 24px #5C5696;
         }
@@ -126,7 +126,7 @@ if (isset($_POST["submit"])) {
         .add-new {
             width: 320px;
             padding-left: 36px;
-            padding-top: 64px;
+            padding-top: 24px;
             font-weight:bold;
         }
 
@@ -167,7 +167,7 @@ if (isset($_POST["submit"])) {
             font-size: 16px;
             margin-top: 20px;
             padding: 15px;
-            border-radius: 26px;
+            border-radius: 14px;
             border: 1px solid #D4D3E8;
             text-transform: uppercase;
             font-weight: 700;
@@ -245,7 +245,7 @@ if (isset($_POST["submit"])) {
                             required>
                     </div>
                     <button class="add-new-button add-new-submit" type="submit" name="submit">
-                        Add <i class="button-icon fas fa-chevron-right"></i>
+                        Add Contact<i class="button-icon fas fa-chevron-right"></i>
                     </button>
                     <div style="padding-left: 12px; padding-top: 24px; ">
                             <a style="color: #FFF" href="dashboard.php">Cancel</a>

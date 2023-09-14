@@ -71,8 +71,6 @@ if (isset($_POST['submit'])) {
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -217,7 +215,7 @@ body {
     font-size: 16px;
     margin-top: 20px;
     padding: 15px;
-    border-radius: 26px;
+    border-radius: 14px;
     border: 1px solid #D4D3E8;
     text-transform: uppercase;
     font-weight: 700;

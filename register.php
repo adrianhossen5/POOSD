@@ -14,10 +14,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($password !== $confirm_password) {
         $errors[] = "Passwords do not match. Please try again.";
     } else {
+        $sql = "SELECT username FROM users WHERE username = ?";
 
-        // check if username already exists
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        // echo "<script>alert('This username is already taken!');</script>";
+
+        if ($result->num_rows === 1) {
+            $alert="<script>alert('This username is already taken!'); window.location='register.php';</script>";
+            echo $alert;
+            exit;
+        }
+        
+        $stmt->close();
+
+        $sql = "SELECT email FROM users WHERE email = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows === 1) {
+            $alert="<script>alert('This email is already taken!'); window.location='register.php';</script>";
+            echo $alert;
+            exit;
+        }
+
+        $stmt->close();
+
+        $sql = "SELECT id, username, password_hash FROM users WHERE username = ?";
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
         $sql = "INSERT INTO `users` (`id`, `username`, `password_hash`, `email`) 
         VALUES (UUID(), ?, ?, ?)";
         $stmt = $conn->prepare($sql);
@@ -30,6 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo "Error: " . $stmt->error;
         }
+
         $stmt->close();
     }
 }
@@ -136,7 +165,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .register {
             width: 320px;
             padding-left: 36px;
-            padding-top: 64px;
+            padding-top: 20px;
         }
 
         .register-field {
@@ -176,7 +205,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             font-size: 16px;
             margin-top: 20px;
             padding: 15px;
-            border-radius: 26px;
+            border-radius: 14px;
             border: 1px solid #D4D3E8;
             text-transform: uppercase;
             font-weight: 700;
@@ -226,8 +255,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container_index">
         <div class="screen">
             <div class="screen-content">
-                <h2 style="text-align:center; padding-top: 36px; color: white;">Register</h2>
-
+                <h2 style="text-align:center; padding-top: 40px; color: white;">Register</h2>
                 <form class="register" method="post">
                     <div class="register-field">
                         <input type="text" class="register-input" id="user_name" name="user_name"
