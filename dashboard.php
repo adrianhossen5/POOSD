@@ -243,7 +243,6 @@ $user_id = $_SESSION['id'];
           </div>
         </form>
 
-        <!-- </div> -->
         <table style="margin-bottom:30px;">
           <thead>
             <tr>
@@ -296,16 +295,7 @@ $user_id = $_SESSION['id'];
           </tbody>
         </table>
       </div>
-
-      <!-- <div class="screen-background">
-          <span class="screen-background-shape screen-background-shape4"></span>
-          <span class="screen-background-shape screen-background-shape3"></span>
-          <span class="screen-background-shape screen-background-shape2"></span>
-      </div> -->
-
     </div>
   </div>
-
 </body>
-
 </html>
