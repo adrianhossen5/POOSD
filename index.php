@@ -33,7 +33,7 @@ function authenticateUser($conn, $username, $password)
         }
     }
 
-    echo "Authentication failed<br>";
+    //Authentication failed
     return false;
 }
 
@@ -61,6 +61,8 @@ if (isset($_POST['submit'])) {
             exit;
         } else {
             $error_message = "Invalid username or password";
+            echo "<script>alert('Invalid username or password');window.location='index.php'; </script>";
+            exit();
         }
     } else {
         foreach ($errors as $error) {
@@ -300,7 +302,6 @@ input::placeholder {
                         </p>
                         <i class="button-icon fas fa-chevron-right"></i>
                     </div>
-                </form>
             </div>
             <div class="screen-background">
                 <span class="screen-background-shape screen-background-shape4"></span>

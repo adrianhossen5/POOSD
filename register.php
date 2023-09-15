@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($password !== $confirm_password) {
         $errors[] = "Passwords do not match. Please try again.";
+        echo "<script>alert('Passwords do not match. Please try again.'); window.location='register.php';</script>";
     } else {
         $sql = "SELECT username FROM users WHERE username = ?";
 
@@ -278,7 +279,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         Register <i class="button-icon fas fa-chevron-right"></i>
                     </button>
                     <div style="padding-left: 12px; padding-top: 24px; ">
-                        <p style="color: #FFF; font-weight: 650;">Don't have an account?
+                        <p style="color: #FFF; font-weight: 650;">Already have an account?
                             <a style="color: #FFF" href="index.php">Log In</a>
                         </p>
                         <i class="button-icon fas fa-chevron-right"></i>

@@ -14,6 +14,12 @@ if (isset($_POST["submit"])) {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $phone_number = mysqli_real_escape_string($conn, $_POST['phone_number']);
 
+    // invalid phone number or email
+    if($phone_number[3] != '-' || $phone_number[7] != '-' || strlen($phone_number != 12)) {
+        echo "<script>alert('Please input a valid phone number.'); window.location='add_new.php';</script>";
+        exit;
+    }
+
     $sql = "INSERT INTO `contacts` (`id`, `user_id`, `first_name`, `last_name`, `email`, `phone_number`) 
             VALUES (UUID(), ?, ?, ?, ?, ?)";
 
@@ -229,19 +235,19 @@ if (isset($_POST["submit"])) {
                 <form class="add-new" method="post">
                     <div class="add-new-field">
                         <input type="text" class="add-new-input" id="first_name" name="first_name"
-                            placeholder="Enter your first name" required>
+                            placeholder="First name" required>
                     </div>
                     <div class="add-new-field">
                         <input type="text" class="add-new-input" id="last_name" name="last_name"
-                            placeholder="Enter your last name" required>
+                            placeholder="Last name" required>
                     </div>
                     <div class="add-new-field">
                         <input type="email" class="add-new-input" id="email"
-                            name="email" placeholder="enter your email" required>
+                            name="email" placeholder="Email" required>
                     </div>
                     <div class="add-new-field">
                         <input type="text" class="add-new-input" id="phone_number" name="phone_number" 
-                        placeholder="Enter your phone number"
+                        placeholder="Phone number"
                             required>
                     </div>
                     <button class="add-new-button add-new-submit" type="submit" name="submit">
