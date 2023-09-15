@@ -21,12 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
-        // echo "<script>alert('This username is already taken!');</script>";
 
         if ($result->num_rows === 1) {
             $alert="<script>alert('This username is already taken!'); window.location='register.php';</script>";
             echo $alert;
-            exit;
+            exit();
         }
         
         $stmt->close();
@@ -40,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result->num_rows === 1) {
             $alert="<script>alert('This email is already taken!'); window.location='register.php';</script>";
             echo $alert;
-            exit;
+            exit();
         }
 
         $stmt->close();
@@ -55,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->execute()) {
             echo "Registration successful!";
             header("Location: index.php");
-            exit;
+            exit();
         } else {
             echo "Error: " . $stmt->error;
         }

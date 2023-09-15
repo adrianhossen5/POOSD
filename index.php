@@ -283,7 +283,6 @@ input::placeholder {
     <div class="container_index">
         <div class="screen">
             <div class="screen-content">
-
                 <form class="login" method="post">
                     <div class="login-field">
                         <input type="text" class="login-input" id="user_name" name="user_name"
