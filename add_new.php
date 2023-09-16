@@ -20,6 +20,12 @@ if (isset($_POST["submit"])) {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sssss", $user_id, $first_name, $last_name, $email, $phone_number);
 
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $alert="<script>alert('Wrong email format'); window.location='add_new.php';</script>";
+        echo $alert;
+        exit();
+    }
+
     if ($stmt->execute()) {
         header("Location: dashboard.php");
         exit();

@@ -41,6 +41,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo $alert;
             exit();
         }
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $alert="<script>alert('Wrong email format'); window.location='register.php';</script>";
+            echo $alert;
+            exit();
+        }
 
         $stmt->close();
 
