@@ -77,6 +77,7 @@ if (isset($_SESSION['id'])) {
             height: 275px;
             width: 500px;
             box-shadow: 0px 0px 24px #5C5696;
+            margin-bottom:30%;
         }
 
         .screen-content {
@@ -227,6 +228,65 @@ if (isset($_SESSION['id'])) {
             margin-top: 20px;
         }
 
+        .edit-delete-button {
+            background: #fff;
+            text-align: center;
+            font-size: 12px;
+            margin-top: 8px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #D4D3E8;
+            text-transform: uppercase;
+            font-weight: 550;
+            display: inline-block;
+            align-items: center;
+            width: auto;
+            color: #4C489D;
+            box-shadow: 0px 2px 2px #5C5696;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .table-screen {
+            background: linear-gradient(90deg, #5D54A4, #7C78B8);
+            position: relative;
+            height: auto;
+            width: 150%;
+            box-shadow: 0px 0px 24px #5C5696;
+            margin-left: -26%;
+            padding-top:30px;
+            padding-bottom:5px;
+        }
+
+    table {
+      width: 95%;
+      margin: 0 auto;
+      border-collapse: collapse;
+      height:100%;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #D4D3E8;
+    }
+
+    th {
+      background: #fff;
+      color: #4C489D;
+      text-transform: uppercase;
+    }
+
+    tr:nth-child(even) {
+      background: #D1C4E9;
+    }
+
+    tr:nth-child(odd) {
+      background: #B39DDB;
+      /* Slightly Darker Purple */
+    }
+
         input::placeholder {
             color: white;
         }
@@ -258,9 +318,13 @@ if (isset($_SESSION['id'])) {
                             <a href="dashboard.php">Cancel</a>
                         </button>
                 </form>
+                
             </div>
+            
         </div>
-        <div>
+
+        <div class="table-screen">
+            
             <?php
             if (isset($searchResults) && !empty($searchResults)) {
                 echo "<table style='margin-bottom:30px;'>
@@ -307,11 +371,7 @@ if (isset($_SESSION['id'])) {
             }
             ?>
         </div>
-        <div class="screen-background">
-            <span class="screen-background-shape screen-background-shape4"></span>
-            <span class="screen-background-shape screen-background-shape3"></span>
-            <span class="screen-background-shape screen-background-shape2"></span>
-        </div>
+
     </div>
 </body>
 

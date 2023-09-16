@@ -65,15 +65,17 @@ $user_id = $_SESSION['id'];
       z-index: 1;
       position: relative;
       height: 100%;
+      overflow: nowrap;
+      margin:0 auto;
     }
 
     .button-location {
-      width: auto;
-      margin-left: 5px;
+      width: 98%;
       padding-left: 30px;
       padding-top: 30px;
-      align-items: left;
-      display: flex;
+      align-items: center;
+      display: inline-block;
+      position: relative;
     }
 
     .submit-button {
@@ -82,7 +84,7 @@ $user_id = $_SESSION['id'];
       font-size: 16px;
       margin-top: 8px;
       padding: 12px;
-      border-radius: 12px;
+      border-radius: 16px;
       border: 1px solid #D4D3E8;
       text-transform: uppercase;
       font-weight: 700;
@@ -170,7 +172,7 @@ $user_id = $_SESSION['id'];
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: auto;
+      width: 100%;
     }
 
     .log-out-button {
@@ -229,15 +231,15 @@ $user_id = $_SESSION['id'];
 
           <div class="button-container container_dashboard">
 
-            <a href="add_new.php" class="add-button">
+            <a href="add_new.php" class="submit-button">
               Add Contact
             </a>
 
-            <a href="search.php" class="submit-button">
+            <a href="search.php" class="submit-button" style="margin-right: auto;">
               Search
             </a>
 
-            <a href="index.php" class="submit-button log-out-button">
+            <a href="index.php" class="submit-button">
               <span class="button-text">Log out</span>
             </a>
           </div>
