@@ -216,10 +216,7 @@ $user_id = $_SESSION['id'];
     }
 
 @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
-  #search-submit-button {
-    height: 70%;
-  }
-  
+
   .button-location {
     width:92%;
   }
