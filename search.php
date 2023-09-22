@@ -41,7 +41,7 @@ if (isset($_SESSION['id'])) {
 
 <!DOCTYPE html>
 <html lang="en">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <body>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
@@ -51,6 +51,7 @@ if (isset($_SESSION['id'])) {
             margin: 0;
             padding: 0;
             font-family: Raleway, sans-serif;
+            text-decoration: none;
         }
 
         body {

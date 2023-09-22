@@ -42,6 +42,7 @@ if (isset($_POST["submit"])) {
             margin: 0;
             padding: 0;
             font-family: Raleway, sans-serif;
+            text-decoration: none;
         }
 
         body {
@@ -67,6 +68,7 @@ if (isset($_POST["submit"])) {
             z-index: 1;
             position: relative;
             height: 100%;
+            width: 100%;
         }
 
         .screen-background {
@@ -223,6 +225,9 @@ if (isset($_POST["submit"])) {
         .label-deco{
           color: white; 
           margin-left:60px; 
+        }
+        @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+            
         }
     </style>
 <body>

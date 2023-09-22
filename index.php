@@ -77,6 +77,8 @@ if (isset($_POST['submit'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <header class="login-header" style="text-align:center; padding-top: 56px;">
         <h1>My Contacts Hub</h1>
     </header>
@@ -87,6 +89,7 @@ if (isset($_POST['submit'])) {
     margin: 0;
     padding: 0;
     font-family: Raleway, sans-serif;
+    text-decoration: none;
 }
 
 body {

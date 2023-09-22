@@ -51,6 +51,7 @@ if (isset($_POST["submit"])) {
         margin: 0;
         padding: 0;
         font-family: Raleway, sans-serif;
+        text-decoration: none;
     }
 
     body {
@@ -222,6 +223,7 @@ if (isset($_POST["submit"])) {
     input::placeholder {
         color: white;
     }
+    
 </style>
 
 <header class="add-new-header">
@@ -247,8 +249,9 @@ if (isset($_POST["submit"])) {
                         <input type="email" class="add-new-input" id="email" name="email" placeholder="Email" required>
                     </div>
                     <div class="add-new-field">
-                        <input type="number" class="add-new-input" id="phone_number" name="phone_number"
-                            placeholder="Phone Number" required>
+                        <input type="tel" class="add-new-input" id="phone_number" name="phone_number"
+                            placeholder="Phone Number" minlength="7" maxlength="15">
+                            <span class="validity"></span>
                     </div>
                     <button class="add-new-button add-new-submit" type="submit" name="submit">
                         Add Contact<i class="button-icon fas fa-chevron-right"></i>
