@@ -338,12 +338,12 @@ $user_id = $_SESSION['id'];
                 </td>
                 <td>
 
-                  <button class="edit-delete-button">
-                    <a href="edit.php?contact_id=<?php echo $row["id"] ?>">Edit</a>
+                  <button class="edit-delete-button" type="button" onclick="location.href='edit.php?contact_id=<?php echo $row['id'] ?>'">
+                    Edit
                   </button>
 
-                  <button class="edit-delete-button">
-                    <a href="delete.php?contact_id=<?php echo $row["id"] ?>">Delete</a>
+                  <button class="edit-delete-button" type="button" onclick="location.href='delete.php?contact_id=<?php echo $row['id'] ?>'"> 
+                    Delete
                   </button>
 
                 </td>

@@ -79,6 +79,7 @@ if (isset($_SESSION['id'])) {
             width: 500px;
             box-shadow: 0px 0px 24px #5C5696;
             margin-bottom:30%;
+
         }
 
         .screen-content {
@@ -315,20 +316,19 @@ if (isset($_SESSION['id'])) {
                         <button class="search-submit" style="margin-left: 13%;" type="submit" name="submit">
                             Search
                         </button>
-                        <button class="search-submit" style="margin-left: 13%;">
-                            <a href="dashboard.php">Cancel</a>
+                        <button class="search-submit" style="margin-left: 13%;" type="button"
+                        onclick="location.href='dashboard.php'">
+                            Cancel
                         </button>
                 </form>
                 
             </div>
             
         </div>
-
-        <div class="table-screen">
-            
             <?php
             if (isset($searchResults) && !empty($searchResults)) {
-                echo "<table style='margin-bottom:30px;'>
+                echo "<div class='table-screen'>
+                <table style='margin-bottom:30px;'>
                         <thead>
                             <tr>
                             <th>First Name</th>
@@ -369,11 +369,10 @@ if (isset($_SESSION['id'])) {
                     </tr>
                     <?php
                 }
+                echo "</div>";
             }
             ?>
         </div>
-
-    </div>
+        </div>
 </body>
-
 </html>
