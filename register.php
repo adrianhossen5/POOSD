@@ -1,74 +1,3 @@
-<?php
-include "conn.php";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    $username = $_POST["user_name"];
-    $password = $_POST["password"];
-    $confirm_password = $_POST["confirm_password"];
-    $email = $_POST["email"];
-    $agree = isset($_POST["agree"]) ? 1 : 0;
-
-    $errors = [];
-
-    if ($password !== $confirm_password) {
-        $errors[] = "Passwords do not match. Please try again.";
-        echo "<script>alert('Passwords do not match. Please try again.'); window.location='register.php';</script>";
-    } else {
-        $sql = "SELECT username FROM users WHERE username = ?";
-
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows === 1) {
-            $alert="<script>alert('This username is already taken!'); window.location='register.php';</script>";
-            echo $alert;
-            exit();
-        }
-        
-        $stmt->close();
-
-        $sql = "SELECT email FROM users WHERE email = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows === 1) {
-            $alert="<script>alert('This email is already taken!'); window.location='register.php';</script>";
-            echo $alert;
-            exit();
-        }
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $alert="<script>alert('Wrong email format'); window.location='register.php';</script>";
-            echo $alert;
-            exit();
-        }
-
-        $stmt->close();
-
-        $sql = "SELECT id, username, password_hash FROM users WHERE username = ?";
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO `users` (`id`, `username`, `password_hash`, `email`) 
-        VALUES (UUID(), ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sss", $username, $hashed_password, $email);
-
-        if ($stmt->execute()) {
-            echo "Registration successful!";
-            header("Location: index.php");
-            exit();
-        } else {
-            echo "Error: " . $stmt->error;
-        }
-
-        $stmt->close();
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -262,7 +191,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="screen">
             <div class="screen-content">
                 <h2 style="text-align:center; padding-top: 40px; color: white;">Register</h2>
-                <form class="register" method="post">
+                <form class="register" method="post" action="./API/registerUser.php">
                     <div class="register-field">
                         <input type="text" class="register-input" id="user_name" name="user_name"
                             placeholder="Enter your username" required>
@@ -272,13 +201,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             placeholder="Enter your password" required>
                     </div>
                     <div class="register-field">
-                        <input type="password" class="register-input" id="confirm_password"
-                            name="confirm_password" placeholder="Confirm your password" required>
+                        <input type="password" class="register-input" id="confirm_password" name="confirm_password"
+                            placeholder="Confirm your password" required>
                     </div>
                     <div class="register-field">
-                        <input type="text" class="register-input" id="email" name="email" 
-                        placeholder="Enter your email"
-                            required>
+                        <input type="email" class="register-input" id="email" name="email"
+                            placeholder="Enter your email" required>
                     </div>
                     <button class="register-button register-submit" type="submit" name="submit">
                         Register <i class="button-icon fas fa-chevron-right"></i>
@@ -299,4 +227,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 </body>
+
 </html>

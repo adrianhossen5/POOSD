@@ -16,44 +16,6 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 
-if (isset($_POST["submit"])) {
-    $user_id = $_SESSION['id'];
-    $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
-    $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $phone_number = mysqli_real_escape_string($conn, $_POST['phone_number']);
-
-    $check_email_sql = "SELECT COUNT(*) FROM `contacts` WHERE `email` = ?";
-    $check_email_stmt = $conn->prepare($check_email_sql);
-    $check_email_stmt->bind_param("s", $email);
-    $check_email_stmt->execute();
-    $check_email_result = $check_email_stmt->get_result();
-    $email_count = $check_email_result->fetch_row()[0];
-
-    if ($email_count > 0) {
-        $emailError = "Email already exists, please use a different one.";
-        $firstNameValue = $first_name; 
-        $lastNameValue = $last_name;   
-        $phoneNumberValue = $phone_number; 
-    } else {
-        
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $emailError = "Wrong email format";
-        } else {
-            $sql = "INSERT INTO `contacts` (`id`, `user_id`, `first_name`, `last_name`, `email`, `phone_number`) 
-                VALUES (UUID(), ?, ?, ?, ?, ?)";
-        
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssss", $user_id, $first_name, $last_name, $email, $phone_number);
-        
-            if ($stmt->execute()) {
-                header("Location: dashboard.php");
-                exit();
-            } 
-        }
-    }
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -244,7 +206,6 @@ if (isset($_POST["submit"])) {
     input::placeholder {
         color: white;
     }
-    
 </style>
 
 <header class="add-new-header">
@@ -252,7 +213,6 @@ if (isset($_POST["submit"])) {
 </header>
 
 <body>
-
     <div class="container_index">
         <div class="screen">
             <div class="screen-content">
@@ -260,22 +220,22 @@ if (isset($_POST["submit"])) {
                 <form class="add-new" method="post">
                     <div class="add-new-field">
                         <input type="text" class="add-new-input" id="first_name" name="first_name"
-                            placeholder="First Name" required value="<?php echo $firstNameValue; ?>">
+                            placeholder="First Name" required>
                     </div>
-                     <div class="add-new-field">
-                         <input type="text" class="add-new-input" id="last_name" name="last_name" placeholder="Last Name"
-                             required value="<?php echo $lastNameValue; ?>">
-                     </div>
-
                     <div class="add-new-field">
-                    <input type="email" class="add-new-input" id="email" name="email" placeholder="Email" required>
-                    <span class="error" style="color: white;"><?php echo $emailError; ?></span>
+                        <input type="text" class="add-new-input" id="last_name" name="last_name" placeholder="Last Name"
+                            required>
                     </div>
 
                     <div class="add-new-field">
-                        <input type="tel" class="add-new-input" id="phone_number" name="phone_number"
-                            placeholder="Phone Number" minlength="7" maxlength="15" value="<?php echo $phoneNumberValue; ?>">
-                            <span class="validity"></span>
+                        <input type="email" class="add-new-input" id="email" name="email" placeholder="Email" required>
+                        <span class="error" style="color: white;"></span>
+                    </div>
+
+                    <div class="add-new-field">
+                        <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="add-new-input" id="phone_number"
+                            name="phone_number" placeholder="Phone# Ex: (888-888-8888)">
+                        <span class="validity"></span>
                     </div>
                     <button class="add-new-button add-new-submit" type="submit" name="submit">
                         Add Contact<i class="button-icon fas fa-chevron-right"></i>
@@ -293,7 +253,6 @@ if (isset($_POST["submit"])) {
             </div>
         </div>
     </div>
-
 </body>
 
 </html>

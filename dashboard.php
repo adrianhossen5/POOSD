@@ -67,7 +67,7 @@ $user_id = $_SESSION['id'];
       position: relative;
       height: 100%;
       overflow: nowrap;
-      margin:0 auto;
+      margin: 0 auto;
     }
 
     .button-location {
@@ -206,6 +206,7 @@ $user_id = $_SESSION['id'];
       color: #4C489D;
       text-transform: uppercase;
     }
+
     tr:nth-child(even) {
       background: #D1C4E9;
     }
@@ -215,69 +216,84 @@ $user_id = $_SESSION['id'];
       /* Slightly Darker Purple */
     }
 
-@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+    @media only screen and (max-width: 760px),
+    (min-device-width: 768px) and (max-device-width: 1024px) {
 
-  .button-location {
-    width:92%;
-  }
-  .submit-button {
-    margin-right: 0;
-  }
+      .button-location {
+        width: 92%;
+      }
 
-  table, thead, tbody, th, td, tr {
-    display: block;
-  }
+      .submit-button {
+        margin-right: 0;
+      }
 
-  thead tr {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
-  tr {
-    margin: 0 0 1rem 0;
-  }
-  tr:nth-child(odd) {
-    background: #B39DDB;
-  }
-  td {
+      table,
+      thead,
+      tbody,
+      th,
+      td,
+      tr {
+        display: block;
+      }
 
-    border: none;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    padding-left: 50%;
-  }
-  td:before {
-    position: absolute;
-    top: 0;
-    left: 6px;
-    width: 45%;
-    padding-right: 10px;
-    white-space: nowrap;
-  }
+      thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
 
-  td:nth-of-type(1):before {
-    content: "First Name";
-  }
-  td:nth-of-type(2):before {
-    content: "Last Name";
-  }
-  td:nth-of-type(3):before {
-    content: "Email";
-  }
-  td:nth-of-type(4):before {
-    content: "Phone Number";
-  }
-  td:nth-of-type(5):before {
-    content: "Action";
-  }
-}
+      tr {
+        margin: 0 0 1rem 0;
+      }
+
+      tr:nth-child(odd) {
+        background: #B39DDB;
+      }
+
+      td {
+
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+      }
+
+      td:before {
+        position: absolute;
+        top: 0;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+      }
+
+      td:nth-of-type(1):before {
+        content: "First Name";
+      }
+
+      td:nth-of-type(2):before {
+        content: "Last Name";
+      }
+
+      td:nth-of-type(3):before {
+        content: "Email";
+      }
+
+      td:nth-of-type(4):before {
+        content: "Phone Number";
+      }
+
+      td:nth-of-type(5):before {
+        content: "Action";
+      }
+    }
   </style>
 </head>
+
 <body>
   <div class="container_index">
     <div class="screen">
       <div class="screen-content">
-        <!-- <div class="all:unset; container-2"> -->
         <?php
         if (isset($_GET["msg"])) {
           $msg = $_GET["msg"];
@@ -291,7 +307,7 @@ $user_id = $_SESSION['id'];
             <a href="add_new.php" class="submit-button">
               Add Contact
             </a>
-
+            <a style="padding-left: 16px"></a>
             <a href="search.php" id="search-submit-button" class="submit-button" style="margin-right: auto;">
               Search
             </a>
@@ -338,11 +354,13 @@ $user_id = $_SESSION['id'];
                 </td>
                 <td>
 
-                  <button class="edit-delete-button" type="button" onclick="location.href='edit.php?contact_id=<?php echo $row['id'] ?>'">
+                  <button class="edit-delete-button" type="button"
+                    onclick="location.href='edit.php?contact_id=<?php echo $row['id'] ?>'">
                     Edit
                   </button>
 
-                  <button class="edit-delete-button" type="button" onclick="location.href='delete.php?contact_id=<?php echo $row['id'] ?>'"> 
+                  <button class="edit-delete-button" type="button"
+                    onclick="location.href='delete.php?contact_id=<?php echo $row['id'] ?>'">
                     Delete
                   </button>
 
@@ -357,4 +375,5 @@ $user_id = $_SESSION['id'];
     </div>
   </div>
 </body>
+
 </html>
