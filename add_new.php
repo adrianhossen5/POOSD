@@ -44,7 +44,7 @@ if (!isset($_SESSION['id'])) {
                     </div>
 
                     <div class="add-new-field">
-                        <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="add-new-input" 
+                        <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" maxlength="12" class="add-new-input" 
                             id="phone_number" name="phone_number" placeholder="Phone# Ex: (888-888-8888)">
                         <span class="validity"></span>
                     </div>
