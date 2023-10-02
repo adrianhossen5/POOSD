@@ -1,4 +1,5 @@
 <?php
+include "conn.php";
 session_start();
 
 if (!isset($_SESSION['id'])) {
@@ -6,11 +7,8 @@ if (!isset($_SESSION['id'])) {
   exit();
 }
 
-include "conn.php";
-
 $_SESSION['searchResults'] = [];
 $user_id = $_SESSION['id'];
-
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +18,7 @@ $user_id = $_SESSION['id'];
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./styling/styleDashboard.css">
+  <link rel="stylesheet" href="./Styling/styleDashboard.css">
   <title>My Contacts</title>
   <header class="header" style="text-align:center; padding-top: 56px;">
     <h1>My Contacts Hub</h1>
@@ -45,11 +43,12 @@ $user_id = $_SESSION['id'];
               Add Contact
             </a>
             <a style="padding-left: 16px"></a>
-            <a href="search.php" id="search-submit-button" class="submit-button" style="margin-right: auto;">
+            <a href="search.php" id="search-submit-button" class="submit-button" 
+              style="margin-right: auto;">
               Search
             </a>
 
-            <a href="index.php" class="submit-button">
+            <a href="./API/logout.php" class="submit-button">
               <span class="button-text">Log out</span>
             </a>
           </div>
@@ -91,10 +90,12 @@ $user_id = $_SESSION['id'];
                 </td>
                 <td>
 
-                  <button class="edit-delete-button" type="button" onclick="location.href='./edit.php?contact_id=<?php echo $row['id'] ?>'">
+                  <button class="edit-delete-button" type="button" 
+                    onclick="location.href='./edit.php?contact_id=<?php echo $row['id'] ?>'">
                     Edit
                   </button>
-                  <button class="edit-delete-button" type="button" onclick="location.href='./API/deleteContact.php?contact_id=<?php echo $row['id'] ?>'">
+                  <button class="edit-delete-button" type="button" 
+                    onclick="location.href='./API/deleteContact.php?contact_id=<?php echo $row['id'] ?>'">
                     Delete
                   </button>
                 </td>

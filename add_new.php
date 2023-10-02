@@ -1,6 +1,6 @@
 <?php
-session_start();
 include "conn.php";
+session_start();
 
 if (!isset($_SESSION['id'])) {
     header("Location: index.php");
@@ -15,7 +15,7 @@ if (!isset($_SESSION['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styling/styleAddNew.css">
+    <link rel="stylesheet" href="./Styling/styleAddNew.css">
 </head>
 
 <header class="add-new-header">
@@ -29,19 +29,23 @@ if (!isset($_SESSION['id'])) {
                 <h2 style="text-align:center; padding-top: 36px; color: white;">Add New Contact</h2>
                 <form class="add-new" method="post" action="./API/addContact.php">
                     <div class="add-new-field">
-                        <input type="text" class="add-new-input" id="first_name" name="first_name" placeholder="First Name" required>
+                        <input type="text" class="add-new-input" id="first_name" name="first_name" 
+                            placeholder="First Name" required>
                     </div>
                     <div class="add-new-field">
-                        <input type="text" class="add-new-input" id="last_name" name="last_name" placeholder="Last Name" required>
+                        <input type="text" class="add-new-input" id="last_name" name="last_name" 
+                            placeholder="Last Name" required>
                     </div>
 
                     <div class="add-new-field">
-                        <input type="email" class="add-new-input" id="email" name="email" placeholder="Email" required>
+                        <input type="email" class="add-new-input" id="email" name="email" 
+                            placeholder="Email" required>
                         <span class="error" style="color: white;"></span>
                     </div>
 
                     <div class="add-new-field">
-                        <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="add-new-input" id="phone_number" name="phone_number" placeholder="Phone# Ex: (888-888-8888)">
+                        <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="add-new-input" 
+                            id="phone_number" name="phone_number" placeholder="Phone# Ex: (888-888-8888)">
                         <span class="validity"></span>
                     </div>
                     <button class="add-new-button add-new-submit" type="submit" name="submit">

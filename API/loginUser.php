@@ -1,5 +1,6 @@
 <?php
 include "../conn.php";
+session_start();
 
 function authenticateUser($conn, $username, $password)
 {
@@ -27,13 +28,17 @@ function authenticateUser($conn, $username, $password)
         }
     }
 
-    //Authentication failed
     return false;
 }
 
-session_start();
-
 if (isset($_POST['submit'])) {
+    if (isset($_SESSION['id'])) {
+        $user_id = $_SESSION['id'];
+    }
+    else {
+        header('Location: ../index.php');
+    }
+    
     $user_name = $_POST['user_name'];
     $password = $_POST['password'];
     $errors = [];
@@ -57,7 +62,8 @@ if (isset($_POST['submit'])) {
             exit();
         } else {
             $error_message = "Invalid username or password";
-            echo "<script>alert('Invalid username or password'); window.location='../index.php'; </script>";
+            echo "<script>alert('Invalid username or password'); 
+                window.location='../index.php'; </script>";
             exit();
         }
     } else {

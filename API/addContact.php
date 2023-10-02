@@ -1,9 +1,14 @@
 <?php
 include "../conn.php";
+session_start();
 
 if (isset($_POST['submit'])) {
-    session_start();
-    $user_id = $_SESSION['id'];
+    if (isset($_SESSION['id'])) {
+        $user_id = $_SESSION['id'];
+      }
+      else {
+        header('Location: ../index.php');
+      }
     $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
     $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
@@ -52,5 +57,7 @@ if (isset($_POST['submit'])) {
 
     $stmt->close();
 }
-
+else {
+    header("Location: ../dashboard.php");
+}
 ?>

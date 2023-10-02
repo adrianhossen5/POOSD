@@ -12,7 +12,8 @@ if (isset($_POST['submit'])) {
 
     if ($password !== $confirm_password) {
         $errors[] = 'Passwords do not match. Please try again.';
-        echo "<script>alert('Passwords do not match. Please try again.'); window.location='../register.php';</script>";
+        echo "<script>alert('Passwords do not match. Please try again.'); 
+            window.location='../register.php';</script>";
     } else {
         $sql = 'SELECT username FROM users WHERE username = ?';
 
@@ -22,7 +23,8 @@ if (isset($_POST['submit'])) {
         $result = $stmt->get_result();
 
         if ($result->num_rows === 1) {
-            $alert="<script>alert('This username is already taken!'); window.location='../register.php';</script>";
+            $alert="<script>alert('This username is already taken!'); 
+                window.location='../register.php';</script>";
             echo $alert;
             exit();
         }
@@ -36,13 +38,15 @@ if (isset($_POST['submit'])) {
         $result = $stmt->get_result();
 
         if ($result->num_rows === 1) {
-            $alert="<script>alert('This email is already taken!'); window.location='../register.php';</script>";
+            $alert="<script>alert('This email is already taken!');
+                window.location='../register.php';</script>";
             echo $alert;
             exit();
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $alert="<script>alert('Wrong email format'); window.location='../register.php';</script>";
+            $alert="<script>alert('Wrong email format'); 
+                window.location='../register.php';</script>";
             echo $alert;
             exit();
         }
@@ -68,4 +72,6 @@ if (isset($_POST['submit'])) {
         $stmt->close();
     }
 }
-?>
+else {
+    header('Location: ../index.php');
+}

@@ -1,5 +1,6 @@
 <?php
 include "../conn.php";
+session_start();
 
 function searchContacts($user_id)
 {
@@ -27,8 +28,9 @@ function searchContacts($user_id)
     }
 }
 
-session_start();
-$user_id = $_SESSION['id'];
+if (isset($_SESSION['id'])) {
+    $user_id = $_SESSION['id'];
+}
 
 if (isset($_POST['search'])) {
     $searchResults = searchContacts($user_id);

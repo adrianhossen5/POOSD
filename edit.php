@@ -1,6 +1,15 @@
 <?php
 include "conn.php";
-$contact_id = $_GET["contact_id"];
+session_start();
+
+if (!isset($_SESSION['id'])) {
+    header("Location: ./index.php");
+}
+else if (isset($_GET["contact_id"])) {
+    $contact_id = $_GET["contact_id"];
+} else {
+    header("Location: ./dashboard.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +19,7 @@ $contact_id = $_GET["contact_id"];
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styling/styleEdit.css">
+    <link rel="stylesheet" href="./Styling/styleEdit.css">
 </head>
 <header class="header" style="text-align:center; padding-top: 56px;">
     <h1>My Contacts Hub</h1>
@@ -35,30 +44,36 @@ $contact_id = $_GET["contact_id"];
                     <input hidden id="id" name="id" value=<?php echo $row['id'] ?>></input>
                     <div style="margin-top:40px;">
                         <label class="label-deco">First Name:</label>
-                        <input type="text" class="edit-input" id="first_name" name="first_name" value="<?php echo $row['first_name'] ?>" required>
+                        <input type="text" class="edit-input" id="first_name" name="first_name" 
+                            value="<?php echo $row['first_name'] ?>" required>
                     </div>
 
                     <div style="margin-top:25px;">
                         <label style="color: white; margin-left:60px;">Last Name:</label>
-                        <input type="text" class="edit-input" id="last_name" name="last_name" value="<?php echo $row['last_name'] ?>" required>
+                        <input type="text" class="edit-input" id="last_name" name="last_name" 
+                            value="<?php echo $row['last_name'] ?>" required>
                     </div>
 
                     <div style="margin-top:25px;">
                         <label style="color: white; margin-left:60px;">Email:</label>
-                        <input type="email" class="edit-input" id="email" name="email" value="<?php echo $row['email'] ?>" required>
+                        <input type="email" class="edit-input" id="email" name="email" 
+                            value="<?php echo $row['email'] ?>" required>
                     </div>
 
                     <div style="margin-top:25px;">
                         <label style="color: white; margin-left:60px;">Phone Number:</label>
-                        <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="edit-input" id="phone_number" name="phone_number" value="<?php echo $row['phone_number'] ?>" required>
+                        <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="edit-input" 
+                            id="phone_number" name="phone_number" value="<?php echo $row['phone_number'] ?>" required>
                     </div>
 
                     <div class="button-icon">
-                        <button class="edit-button edit-submit" type="submit" name="submit" value="Update">
+                        <button class="edit-button edit-submit" type="submit" name="submit" 
+                            value="Update">
                             Update
                         </button>
 
-                        <button class="edit-button edit-submit" style="margin-left:3%;" type="button" onclick="location.href='dashboard.php'">
+                        <button class="edit-button edit-submit" style="margin-left:3%;" type="button" 
+                            onclick="location.href='dashboard.php'">
                             Cancel
                         </button>
                 </form>
