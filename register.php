@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <head>
-        <link rel="stylesheet" href="./Styling/styleRegister.css">
+        <link rel="stylesheet" href="styleRegister.css">
     </head>
     <header class="register-header" style="text-align:center; padding-top: 56px;">
         <h1>My Contacts Hub</h1>
