@@ -1,0 +1,245 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Raleway, sans-serif;
+  text-decoration: none;
+}
+
+body {
+  background: linear-gradient(90deg, #c7c5f4, #776bcc);
+}
+
+.container_index {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 90vh;
+}
+
+.container_index2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 55vh;
+}
+
+.screen {
+  background: linear-gradient(90deg, #5d54a4, #7c78b8);
+  position: relative;
+  height: 275px;
+  width: 500px;
+  box-shadow: 0px 0px 24px #5c5696;
+  margin-bottom: 30%;
+}
+
+.screen-content {
+  z-index: 1;
+  position: relative;
+  height: 100%;
+}
+
+.screen-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  -webkit-clip-path: inset(0 0 0 0);
+  clip-path: inset(0 0 0 0);
+}
+
+.screen-background-shape {
+  transform: rotate(45deg);
+  position: absolute;
+}
+
+.screen-background-shape1 {
+  height: 400px;
+  width: 520px;
+  background: #fff;
+  top: -50px;
+  right: 120px;
+  border-radius: 0 72px 0 0;
+}
+
+.screen-background-shape2 {
+  height: 220px;
+  width: 220px;
+  background: #6c63ac;
+  top: -172px;
+  right: 0;
+  border-radius: 32px;
+}
+
+.screen-background-shape3 {
+  height: 540px;
+  width: 190px;
+  background: linear-gradient(270deg, #5d54a4, #6a679e);
+  top: -24px;
+  right: 0;
+  border-radius: 32px;
+}
+
+.screen-background-shape4 {
+  height: 400px;
+  width: 200px;
+  background: #7e7bb9;
+  top: 420px;
+  right: 50px;
+  border-radius: 60px;
+}
+
+.search {
+  width: 320px;
+  padding-left: 36px;
+  padding-top: 64px;
+}
+
+.search-field {
+  padding: 20px 0px;
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  top: 30px;
+  color: #7875b5;
+}
+
+.search-input {
+  border: none;
+  font-size: 16px;
+  border-bottom: 2px solid #d1d1d4;
+  color: #fff;
+  background: none;
+  padding: 10px;
+  padding-left: 12px;
+  margin-left: 10%;
+  font-weight: 400;
+  width: 80%;
+  transition: 0.2s;
+}
+
+.search-input:active,
+.search-input:focus,
+.search-input:hover {
+  outline: none;
+  border-bottom-color: #6a679e;
+}
+
+.search-submit {
+  background: #fff;
+  text-align: center;
+  font-size: 16px;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 16px;
+  border: 1px solid #d4d3e8;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  /* Center horizontally */
+  width: 30%;
+  color: #4c489d;
+  box-shadow: 0px 2px 2px #5c5696;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.search-header {
+  background: #fff;
+  text-align: center;
+  font-size: 16px;
+  padding: 48px;
+  border: 1px solid #d4d3e8;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: #4c489d;
+  box-shadow: 0px 2px 2px #5c5696;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.search-submit:hover {
+  border-color: #6a679e;
+  outline: none;
+}
+
+.button-icon {
+  text-align: center;
+  /* Center the buttons horizontally */
+  margin-top: 20px;
+}
+
+.edit-delete-button {
+  background: #fff;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 8px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #d4d3e8;
+  text-transform: uppercase;
+  font-weight: 550;
+  display: inline-block;
+  align-items: center;
+  width: auto;
+  color: #4c489d;
+  box-shadow: 0px 2px 2px #5c5696;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.table-screen {
+  background: linear-gradient(90deg, #5d54a4, #7c78b8);
+  position: relative;
+  height: auto;
+  width: 150%;
+  box-shadow: 0px 0px 24px #5c5696;
+  margin-left: -26%;
+  padding-top: 30px;
+  padding-bottom: 5px;
+}
+
+table {
+  width: 95%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  height: 100%;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #d4d3e8;
+}
+
+th {
+  background: #fff;
+  color: #4c489d;
+  text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+  background: #d1c4e9;
+}
+
+tr:nth-child(odd) {
+  background: #b39ddb;
+  /* Slightly Darker Purple */
+}
+
+input::placeholder {
+  color: white;
+}
