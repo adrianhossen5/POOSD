@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
-$username = "root";
-$password = "";
+$username = "super";
+$password = "password";
 $dbname = "contact_manager_uuid";
 
 $conn = mysqli_connect($servername, $username, $password, $dbname);
