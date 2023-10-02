@@ -18,7 +18,7 @@ $user_id = $_SESSION['id'];
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./Styling/styleDashboard.css">
+  <link rel="stylesheet" href="styleDashboard.css">
   <title>My Contacts</title>
   <header class="header" style="text-align:center; padding-top: 56px;">
     <h1>My Contacts Hub</h1>

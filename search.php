@@ -5,7 +5,7 @@ session_start();
 if (isset($_SESSION['id'])) {
     $user_id = $_SESSION['id'];
 } else {
-    header("Location: ./Pages/index.php"); // Redirect to the login page if the user is not logged in
+    header("Location: index.php"); // Redirect to the login page if the user is not logged in
     exit();
 }
 ?>
@@ -14,7 +14,7 @@ if (isset($_SESSION['id'])) {
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="./Styling/styleSearch.css">
+    <link rel="stylesheet" href="styleSearch.css">
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
