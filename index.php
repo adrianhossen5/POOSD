@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <head>
-        <link rel="stylesheet" href="./Styling/styleIndex.css">
+        <link rel="stylesheet" href="./styleIndex.css">
     </head>
     <header class="login-header" style="text-align:center; padding-top: 56px;">
         <h1>My Contacts Hub</h1>
