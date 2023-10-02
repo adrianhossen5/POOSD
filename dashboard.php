@@ -75,7 +75,7 @@ $user_id = $_SESSION['id'];
             $result = $stmt->get_result();
 
             while ($row = $result->fetch_assoc()) {
-              ?>
+            ?>
               <tr>
                 <td>
                   <?php echo $row["first_name"] ?>
@@ -91,17 +91,15 @@ $user_id = $_SESSION['id'];
                 </td>
                 <td>
 
-                  <button class="edit-delete-button" type="button"
-                    onclick="location.href='./edit.php?contact_id=<?php echo $row['id'] ?>'">
+                  <button class="edit-delete-button" type="button" onclick="location.href='./edit.php?contact_id=<?php echo $row['id'] ?>'">
                     Edit
                   </button>
-                  <button class="edit-delete-button" type="button"
-                    onclick="location.href='./API/deleteContact.php?contact_id=<?php echo $row['id'] ?>'">
+                  <button class="edit-delete-button" type="button" onclick="location.href='./API/deleteContact.php?contact_id=<?php echo $row['id'] ?>'">
                     Delete
                   </button>
                 </td>
               </tr>
-              <?php
+            <?php
             }
             ?>
           </tbody>
