@@ -12,9 +12,10 @@ if (isset($_SESSION['id'])) {
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link rel="stylesheet" href="./styling/styleSearch.css">
-    </head>
+
+<head>
+    <link rel="stylesheet" href="./styling/styleSearch.css">
+</head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <body>
@@ -33,16 +34,14 @@ if (isset($_SESSION['id'])) {
                 <form method="post" action="./API/getContacts.php" id="search">
 
                     <div class="search-field">
-                        <input type="text" class="search-input" id="search" name="search"
-                            placeholder="Name, email, or phone number">
+                        <input type="text" class="search-input" id="search" name="search" placeholder="Name, email, or phone number">
                     </div>
 
                     <div class="button-container">
                         <button class="search-submit" style="margin-left: 13%;" type="submit" name="submit">
                             Search
                         </button>
-                        <button class="search-submit" style="margin-left: 13%;" type="button"
-                            onclick="location.href='dashboard.php'">
+                        <button class="search-submit" style="margin-left: 13%;" type="button" onclick="location.href='dashboard.php'">
                             Cancel
                         </button>
                 </form>
@@ -67,7 +66,7 @@ if (isset($_SESSION['id'])) {
                         <tbody>";
 
             foreach ($searchResults as $contact) {
-                ?>
+        ?>
                 <tr>
                     <td>
                         <?php echo $contact["first_name"] ?>
@@ -93,7 +92,7 @@ if (isset($_SESSION['id'])) {
 
                     </td>
                 </tr>
-                <?php
+        <?php
             }
             echo "</div>";
         }
