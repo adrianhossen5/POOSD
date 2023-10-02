@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "super";
 $password = "password";
-$dbname = "contact_manager_uuid";
+$dbname = "contact_manager";
 
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
