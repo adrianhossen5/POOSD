@@ -31,11 +31,11 @@ function authenticateUser($conn, $username, $password)
     return false;
 }
 
+session_start();
 
 if (isset($_POST['submit'])) {
     $user_name = $_POST['user_name'];
     $password = $_POST['password'];
-
     $errors = [];
 
     if (empty($user_name)) {
@@ -44,6 +44,7 @@ if (isset($_POST['submit'])) {
     if (empty($password)) {
         $errors[] = "Password is required.";
     }
+
     if (empty($errors)) {
         // Authenticate the user
         $user_id = authenticateUser($conn, $user_name, $_POST['password']);
@@ -53,17 +54,17 @@ if (isset($_POST['submit'])) {
             $_SESSION['id'] = $user_id;
             echo "Authentication successful";
             header("Location: ../dashboard.php");
-            exit;
+            exit();
         } else {
             $error_message = "Invalid username or password";
-            echo "<script>alert('Invalid username or password');window.location='index.php'; </script>";
+            echo "<script>alert('Invalid username or password'); window.location='../index.php'; </script>";
             exit();
         }
     } else {
         foreach ($errors as $error) {
             $error_message .= $error . "<br>";
+            header("Location: ../index.php");
         }
     }
-
 }
 ?>
