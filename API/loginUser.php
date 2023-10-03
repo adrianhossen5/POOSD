@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isPostmanRequest()) {
                 echo "Authentication successful!\n";
             }
-            echo "<script> window.location.href='../dashboard.php'; </script>";
+            echo "<script> window.location='../dashboard.php'; </script>";
             exit();
         } else {
             if (isPostmanRequest()) {
@@ -65,8 +65,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         foreach ($errors as $error) {
-            echo "<script> window.location.href='../index.php'; </script>";
+            echo "<script> window.location='../index.php'; </script>";
             exit();
         }
     }
 }
+else {
+    echo "<script> window.location='../index.php';</script>";
+    exit();
+}
+?>

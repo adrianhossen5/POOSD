@@ -2,10 +2,16 @@
 include "../conn.php";
 session_start();
 
+function isPostmanRequest()
+{
+    return isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], 'Postman') !== false;
+}
+
 function searchContacts($user_id)
 {
     global $conn;
     $searchTerm = $_POST["search"];
+            $_SESSION['id'] = $user_id;
 
     $sql = "SELECT * FROM `contacts` WHERE `user_id` = ? AND (
            `first_name` LIKE ? OR
@@ -21,16 +27,33 @@ function searchContacts($user_id)
 
     if ($result) {
         $searchResults = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        if (isPostmanRequest() && count($searchResults) > 0) {
+            echo "Search Results Found!\n";
+        }
+        else {
+            if (isPostmanRequest()) {
+                echo "No Search Results Found!\n";
+            }
+        }
         return $searchResults;
     } else {
-        echo "Search failed: " . mysqli_error($conn);
+        if (isPostmanRequest()) {
+            echo "Search failed: " . mysqli_error($conn);
+        }
         return [];
     }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isPostmanRequest()) {
+        echo "POST request received\n";
+    }
+    $user_id = $_SESSION['id'];
     $searchResults = searchContacts($user_id);
     $_SESSION['searchResults'] = $searchResults;
-    header("Location: ../search.php");
+    echo "<script> window.location='../search.php'; </script>";
+}
+else {
+    echo "<script> window.location='../dashboard.php';</script>";
 }
 ?>

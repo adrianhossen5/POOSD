@@ -48,14 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($result->num_rows === 1) {
             $alert = "<script>alert('This email is already taken!');
-                window.location='../register.php';</script>";
+                window.location.href='../register.php';</script>";
             echo $alert;
             exit();
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $alert = "<script>alert('Wrong email format'); 
-                window.location='../register.php';</script>";
+                window.location.href='../register.php';</script>";
             echo $alert;
             exit();
         }
@@ -71,8 +71,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmt->execute()) {
             if (isPostmanRequest()) {
-                echo 'Registration successful!';
+                echo "Registration successful!\n";
             }
+
             echo '<script> window.location="../index.php";</script>';
             exit();
         } else {
@@ -80,9 +81,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo "Registration failed!\n";
             }
             echo '<script>alert("Registration failed!"); 
-                window.location="../register.php";</script>';
+                window.location.href="../register.php";</script>';
         }
 
         $stmt->close();
     }
 }
+else {
+    echo "<script> window.location='../register.php';</script>";
+}
+?>

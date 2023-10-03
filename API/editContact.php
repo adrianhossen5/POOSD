@@ -2,9 +2,18 @@
 include "../conn.php";
 session_start();
 
+function isPostmanRequest()
+{
+    return isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], 'Postman') !== false;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isPostmanRequest()) {
+        echo "POST request received\n";
+    }
+
     $user_id = $_SESSION['id'];
-    $contact_id = $_POST['id'];
+    $contact_id = $_POST['contact_id'];
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
     $email = $_POST['email'];
@@ -57,11 +66,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo json_encode(["error" => "Failed to update contact"]);
             }
 
-            header("Location: ../dashboard.php");
+            echo "<script> window.location='../dashboard.php';</script>";
         }
     }
 }
 else {
-    header("Location: ../dashboard.php");
+    echo "<script> window.location='../dashboard.php';</script>";
 }
 ?>

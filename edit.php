@@ -41,7 +41,7 @@ else if (isset($_GET["contact_id"])) {
                 ?>
 
                 <form style="margin-top:45px;" action="./API/editContact.php" method="post">
-                    <input hidden id="id" name="id" value=<?php echo $row['id'] ?>></input>
+                    <input hidden id="id" name="contact_id" value=<?php echo $row['id'] ?>></input>
                     <div style="margin-top:40px;">
                         <label class="label-deco">First Name:</label>
                         <input type="text" class="edit-input" id="first_name" name="first_name" 
