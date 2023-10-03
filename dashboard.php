@@ -70,7 +70,7 @@ $_SESSION['defaultContacts'] = mysqli_fetch_all($result, MYSQLI_ASSOC);
             <?php
             $result = $_SESSION['defaultContacts'];
             foreach ($result as $row) {
-              ?>
+            ?>
               <tr>
                 <td>
                   <?php echo $row["first_name"] ?>
@@ -85,18 +85,20 @@ $_SESSION['defaultContacts'] = mysqli_fetch_all($result, MYSQLI_ASSOC);
                   <?php echo $row["phone_number"] ?>
                 </td>
                 <td>
-                  <form method="post" action="./edit.php">
-                    <input hidden id="id" name="contact_id" value=<?php echo $row['id'] ?>></input>
-                    <button class="edit-delete-button" type="submit">
-                      Edit
-                    </button>
-                  </form>
-                  <form method="post" action="./API/deleteContact.php">
-                    <input hidden id="id" name="contact_id" value=<?php echo $row['id'] ?>></input>
-                    <button class="edit-delete-button" type="submit">
-                      Delete
-                    </button>
-                  </form>
+                  <div>
+                    <form method="post" action="./edit.php" style="display: inline;">
+                      <input hidden id="id" name="contact_id" value=<?php echo $row['id'] ?>></input>
+                      <button class="edit-delete-button" type="submit">
+                        Edit
+                      </button>
+                    </form>
+                    <form method="post" action="./API/deleteContact.php" style="display: inline;">
+                      <input hidden id="id" name="contact_id" value=<?php echo $row['id'] ?>></input>
+                      <button class="edit-delete-button" type="submit">
+                        Delete
+                      </button>
+                    </form>
+                  </div>
                 </td>
               </tr>
             <?php
