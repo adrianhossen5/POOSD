@@ -4,7 +4,8 @@ session_start();
 
 function isPostmanRequest()
 {
-    return isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], 'Postman') !== false;
+    return isset($_SERVER['HTTP_USER_AGENT']) && 
+        strpos($_SERVER['HTTP_USER_AGENT'], 'Postman') !== false;
 }
 
 function authenticateUser($conn, $username, $password)
@@ -50,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Authentication successful
             $_SESSION['id'] = $user_id;
             if (isPostmanRequest()) {
-                echo "Authentication successful!\n";
+                echo "Authentication successful for user id" . $user_id . "!\n";
             }
             echo "<script> window.location='../dashboard.php'; </script>";
             exit();

@@ -4,7 +4,8 @@ session_start();
 
 function isPostmanRequest()
 {
-    return isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], 'Postman') !== false;
+    return isset($_SERVER['HTTP_USER_AGENT']) && 
+        strpos($_SERVER['HTTP_USER_AGENT'], 'Postman') !== false;
 }
 
 function searchContacts($user_id)

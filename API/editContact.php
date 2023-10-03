@@ -4,7 +4,8 @@ session_start();
 
 function isPostmanRequest()
 {
-    return isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], 'Postman') !== false;
+    return isset($_SERVER['HTTP_USER_AGENT']) && 
+        strpos($_SERVER['HTTP_USER_AGENT'], 'Postman') !== false;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -58,12 +59,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $result = mysqli_query($conn, $sql);
 
-            if ($result) {
-                // Return a success response (e.g., JSON)
-                echo json_encode(["message" => "Contact updated successfully"]);
-            } else {
-                // Return an error response (e.g., JSON)
-                echo json_encode(["error" => "Failed to update contact"]);
+            if ($result && isPostmanRequest()) {
+                echo "Contact id: " . $contact_id . "updated successfully!\n";
+            } else if (isPostmanRequest()){
+                echo "Failed to update contact id: " . $contact_id . "!\n";
             }
 
             echo "<script> window.location='../dashboard.php';</script>";

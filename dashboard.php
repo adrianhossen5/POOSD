@@ -8,7 +8,15 @@ if (!isset($_SESSION['id'])) {
 }
 
 $_SESSION['searchResults'] = [];
+$_SESSION['defaultContacts'] = [];
+
 $user_id = $_SESSION['id'];
+$sql = "SELECT * FROM `contacts` WHERE user_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$_SESSION['defaultContacts'] = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -29,12 +37,6 @@ $user_id = $_SESSION['id'];
   <div class="container_index">
     <div class="screen">
       <div class="screen-content">
-        <?php
-        if (isset($_GET["msg"])) {
-          $msg = $_GET["msg"];
-          echo '<div>' . $msg . '</div>';
-        }
-        ?>
         <form class="button-location" method="post">
 
           <div class="button-container container_dashboard">
@@ -43,8 +45,7 @@ $user_id = $_SESSION['id'];
               Add Contact
             </a>
             <a style="padding-left: 16px"></a>
-            <a href="search.php" id="search-submit-button" class="submit-button" 
-              style="margin-right: auto;">
+            <a href="search.php" id="search-submit-button" class="submit-button" style="margin-right: auto;">
               Search
             </a>
 
@@ -67,14 +68,9 @@ $user_id = $_SESSION['id'];
 
           <tbody>
             <?php
-            $sql = "SELECT * FROM `contacts` WHERE user_id = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("i", $user_id);
-            $stmt->execute();
-            $result = $stmt->get_result();
-
-            while ($row = $result->fetch_assoc()) {
-            ?>
+            $result = $_SESSION['defaultContacts'];
+            foreach ($result as $row) {
+              ?>
               <tr>
                 <td>
                   <?php echo $row["first_name"] ?>
@@ -89,15 +85,18 @@ $user_id = $_SESSION['id'];
                   <?php echo $row["phone_number"] ?>
                 </td>
                 <td>
-
-                  <button class="edit-delete-button" type="button" 
-                    onclick="location.href='./edit.php?contact_id=<?php echo $row['id'] ?>'">
-                    Edit
-                  </button>
-                  <button class="edit-delete-button" type="button" 
-                    onclick="location.href='./API/deleteContact.php?contact_id=<?php echo $row['id'] ?>'">
-                    Delete
-                  </button>
+                  <form method="post" action="./edit.php">
+                    <input hidden id="id" name="contact_id" value=<?php echo $row['id'] ?>></input>
+                    <button class="edit-delete-button" type="submit">
+                      Edit
+                    </button>
+                  </form>
+                  <form method="post" action="./API/deleteContact.php">
+                    <input hidden id="id" name="contact_id" value=<?php echo $row['id'] ?>></input>
+                    <button class="edit-delete-button" type="submit">
+                      Delete
+                    </button>
+                  </form>
                 </td>
               </tr>
             <?php

@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($stmt->execute()) {
 
                 if (isPostmanRequest()) {
-                    echo "Contact Added!\n";
+                    echo "Contact " . $first_name ." Added!\n";
                 }
 
                 echo "<script> window.location='../dashboard.php';</script>";

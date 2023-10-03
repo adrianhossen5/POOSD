@@ -4,7 +4,7 @@ include "../conn.php";
 function isPostmanRequest()
 {
     return isset($_SERVER['HTTP_USER_AGENT']) && 
-    strpos($_SERVER['HTTP_USER_AGENT'], 'Postman') !== false;
+        strpos($_SERVER['HTTP_USER_AGENT'], 'Postman') !== false;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmt->execute()) {
             if (isPostmanRequest()) {
-                echo "Registration successful!\n";
+                echo "Registration successful for " . $username . "!\n";
             }
 
             echo '<script> window.location="../index.php";</script>';

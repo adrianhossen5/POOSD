@@ -12,18 +12,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "POST request received\n";
   }
   $user_id = $_SESSION['id'];
-  $contact_id = $_GET["contact_id"];
+  $contact_id = $_POST['contact_id'];
   $sql = "DELETE FROM `contacts` WHERE `id` = '$contact_id' AND `user_id` = '$user_id'";
   $result = mysqli_query($conn, $sql);
   
   if ($result) {
-    header("Location: ../dashboard.php");
+    if (isPostmanRequest()) {
+      echo "Contact id: " . $contact_id . " Deleted!\n";
+    }
+    echo "<script> window.location='../dashboard.php';</script>";
   } else {
-    echo "Failed: " . mysqli_error($conn);
-    header("Location: ../dashboard.php");
+    echo "Failed to Delete Contact id: " . $contact_id  . "\n";
+    echo "<script> window.location='../dashboard.php';</script>";
   }
 }
 else {
   echo "<script> window.location='../dashboard.php';</script>";
+  exit();
 }
 ?>
