@@ -28,11 +28,7 @@ function searchContacts($user_id)
     }
 }
 
-if (isset($_SESSION['id'])) {
-    $user_id = $_SESSION['id'];
-}
-
-if (isset($_POST['search'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $searchResults = searchContacts($user_id);
     $_SESSION['searchResults'] = $searchResults;
     header("Location: ../search.php");

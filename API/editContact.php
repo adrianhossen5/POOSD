@@ -2,15 +2,7 @@
 include "../conn.php";
 session_start();
 
-if (isset($_POST['submit'])) {
-
-    if (isset($_SESSION['id'])) {
-        $user_id = $_SESSION['id'];
-    }
-    else {
-        header('Location: ../index.php');
-    }
-
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id = $_SESSION['id'];
     $contact_id = $_POST['id'];
     $first_name = $_POST['first_name'];

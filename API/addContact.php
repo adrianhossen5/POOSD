@@ -2,13 +2,7 @@
 include "../conn.php";
 session_start();
 
-if (isset($_POST['submit'])) {
-    if (isset($_SESSION['id'])) {
-        $user_id = $_SESSION['id'];
-      }
-      else {
-        header('Location: ../index.php');
-      }
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
     $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);

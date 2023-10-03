@@ -2,6 +2,11 @@
 include "../conn.php";
 session_start();
 
+function isPostmanRequest()
+{
+    return isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], 'Postman') !== false;
+}
+
 function authenticateUser($conn, $username, $password)
 {
     $sql = "SELECT id, username, password_hash FROM users WHERE username = ?";
@@ -13,17 +18,8 @@ function authenticateUser($conn, $username, $password)
 
     if ($result->num_rows === 1) {
         $row = $result->fetch_assoc();
-        echo "Stored Password Hash: " . $row['password_hash'] . "<br>";
-        echo "User-Provided Password: " . $password . "<br>";
-        $flag = password_verify($password, $row['password_hash']);
-        if ($flag) {
-            echo "yyyy";
-        } else {
-            echo "nnnn";
-        }
-        if (password_verify($password, $row['password_hash'])) {
-            echo "Authentication successful!<br>";
 
+        if (password_verify($password, $row['password_hash'])) {
             return $row['id'];
         }
     }
@@ -31,14 +27,10 @@ function authenticateUser($conn, $username, $password)
     return false;
 }
 
-if (isset($_POST['submit'])) {
-    if (isset($_SESSION['id'])) {
-        $user_id = $_SESSION['id'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isPostmanRequest()) {
+        echo "POST request received\n";
     }
-    else {
-        header('Location: ../index.php');
-    }
-    
     $user_name = $_POST['user_name'];
     $password = $_POST['password'];
     $errors = [];
@@ -57,20 +49,24 @@ if (isset($_POST['submit'])) {
         if ($user_id !== false) {
             // Authentication successful
             $_SESSION['id'] = $user_id;
-            echo "Authentication successful";
-            header("Location: ../dashboard.php");
+            if (isPostmanRequest()) {
+                echo "Authentication successful!\n";
+            }
+            echo "<script> window.location.href='../dashboard.php'; </script>";
             exit();
         } else {
+            if (isPostmanRequest()) {
+                echo "Authentication Failed!\n";
+            }
             $error_message = "Invalid username or password";
             echo "<script>alert('Invalid username or password'); 
-                window.location='../index.php'; </script>";
+                window.location.href='../index.php'; </script>";
             exit();
         }
     } else {
         foreach ($errors as $error) {
-            $error_message .= $error . "<br>";
-            header("Location: ../index.php");
+            echo "<script> window.location.href='../index.php'; </script>";
+            exit();
         }
     }
 }
-?>

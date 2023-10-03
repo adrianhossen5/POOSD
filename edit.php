@@ -32,12 +32,12 @@ else if (isset($_GET["contact_id"])) {
                 <h2 style="text-align:center; padding-top: 46px; color: white;">Edit</h2>
 
                 <?php
-                $sql = "SELECT * FROM `contacts` WHERE id = ?";
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param("s", $contact_id);
-                $stmt->execute();
-                $result = $stmt->get_result();
-                $row = $result->fetch_assoc();
+                    $sql = "SELECT * FROM `contacts` WHERE id = ?";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bind_param("s", $contact_id);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    $row = $result->fetch_assoc();
                 ?>
 
                 <form style="margin-top:45px;" action="./API/editContact.php" method="post">
