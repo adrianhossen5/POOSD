@@ -44,11 +44,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
-        // Authenticate the user
         $user_id = authenticateUser($conn, $user_name, $_POST['password']);
 
         if ($user_id !== false) {
-            // Authentication successful
             $_SESSION['id'] = $user_id;
             if (isPostmanRequest()) {
                 echo "Authentication successful for user id" . $user_id . "!\n";

@@ -49,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isPostmanRequest()) {
         echo "POST request received\n";
     }
+    
     $user_id = $_SESSION['id'];
     $searchResults = searchContacts($user_id);
     $_SESSION['searchResults'] = $searchResults;
