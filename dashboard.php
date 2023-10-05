@@ -27,9 +27,9 @@ $_SESSION['defaultContacts'] = mysqli_fetch_all($result, MYSQLI_ASSOC);
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styleDashboard.css">
-  <title>My Contacts</title>
+  <title>Contastic</title>
   <header class="header" style="text-align:center; padding-top: 56px;">
-    <h1>My Contacts Hub</h1>
+    <h1>Contastic</h1>
   </header>
 </head>
 

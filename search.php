@@ -21,7 +21,7 @@ if (isset($_SESSION['id'])) {
 <body>
 
     <header class="search-header" style="text-align:center; padding-top: 56px;">
-        <h1>My Contacts Hub</h1>
+        <h1>Contastic</h1>
     </header>
 
     <div class="container_index">

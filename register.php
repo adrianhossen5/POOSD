@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="styleRegister.css">
     </head>
     <header class="register-header" style="text-align:center; padding-top: 56px;">
-        <h1>My Contacts Hub</h1>
+        <h1>Contastic</h1>
     </header>
 </head>
 
@@ -38,7 +38,7 @@
                     </button>
                     <div style="padding-left: 12px; padding-top: 24px; ">
                         <p style="color: #FFF; font-weight: 650;">Already have an account?
-                            <a style="color: #FFF" href="index.php">Log In</a>
+                            <a class="login-button" href="index.php">Log In</a>
                         </p>
                         <i class="button-icon fas fa-chevron-right"></i>
                     </div>

@@ -19,7 +19,7 @@ if (!isset($_SESSION['id'])) {
 </head>
 
 <header class="add-new-header">
-    <h1>My Contacts Hub</h1>
+    <h1>Contastic</h1>
 </header>
 
 <body>
@@ -52,7 +52,7 @@ if (!isset($_SESSION['id'])) {
                         Add Contact<i class="button-icon fas fa-chevron-right"></i>
                     </button>
                     <div style="padding-left: 12px; padding-top: 24px; ">
-                        <a style="color: #FFF" href="dashboard.php">Cancel</a>
+                        <a class="cancel-button" href="dashboard.php">Cancel</a>
                         <i class="button-icon fas fa-chevron-right"></i>
                     </div>
                 </form>

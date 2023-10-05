@@ -171,6 +171,14 @@ body {
   color: #7875b5;
 }
 
+.login-button {
+  color:white;
+}
+
+.login-button:hover {
+  text-decoration: underline;
+}
+
 input::placeholder {
   color: white;
 }
