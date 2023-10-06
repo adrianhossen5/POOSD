@@ -41,16 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $data['password'];
     $errors = [];
 
-    $response = array('success' => false, 'message' => 'Login failed');
+    $response = array('success' => false, 'message' => 'Login failed.');
 
     if (empty($user_name)) {
         $errors[] = "Username is required.";
-        $response = array('success' => false, 'message' => 'Login failed');
-        http_response_code(400); // Bad Request
+        $response = array('success' => false, 'message' => 'Username is required.');
     } else if (empty($password)) {
         $errors[] = "Password is required.";
-        $response = array('success' => false, 'message' => 'Login failed');
-        http_response_code(400); // Bad Request
+        $response = array('success' => false, 'message' => 'Password is required.');
     }
 
     if (empty($errors)) {
@@ -61,14 +59,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userObj['username'] = $user_name; // Make sure this matches the key in your JavaScript code
             $userObj['id'] = $_SESSION['id'];
             $response = array('success' => true, 'message' => 'Login successful', 'user' => $userObj);
-            http_response_code(200); // OK
         } else {
-            $error_message = "Invalid username or password";
-            $response = array('success' => false, 'message' => $error_message);
-            http_response_code(400); // Bad Request
+            $response = array('success' => false, 'message' => 'Invalid username or password.');
         }
     }
 
+    http_response_code(200);
     header('Content-Type: application/json');
     echo json_encode($response);
 } else {

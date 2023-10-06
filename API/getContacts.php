@@ -53,18 +53,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($searchResults)) {
         $response = array(
             'success' => true,
-            'message' => 'Contacts retrieved successfully',
+            'message' => 'Contacts retrieved successfully.',
             'contacts' => $searchResults
         );
-        http_response_code(200); // Set HTTP status code to 200 OK
     } else {
         $response = array(
             'success' => false,
-            'message' => 'No contacts found or an error occurred'
+            'message' => 'No contacts found or an error occurred.'
         );
-        http_response_code(400); // Set HTTP status code to 404 Not Found (or another appropriate code)
     }
 
+    http_response_code(200); 
     header('Content-Type: application/json');
     echo json_encode($response);
 } else {

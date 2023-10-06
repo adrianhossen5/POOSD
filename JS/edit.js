@@ -19,19 +19,20 @@ $(() => {
     $.ajax({
       url: '/API/editContact.php',
       method: 'POST',
-      dataType: 'text',
+      dataType: 'json',
       contentType: 'application/json',
       data: JSON.stringify(editObj),
-      success: function (response, status, jqXHR) {
-        if (response.success || jqXHR.status === 200 || status === 200) {
+      success: function (response) {
+        if (response.success) {
           window.location = '/dashboard.php';
+        } else if (!response.success) {
+          alert('Edit failed: ' + response.message);
         } else {
-          alert('Contact Edit Failed!: ' + response.message);
-          window.location = '/dashboard.php';
+          alert('Edit failed!');
         }
       },
       error: function (error) {
-        alert('Contact Edit Error!: ' + error.message);
+        alert('Contact Edit Error!');
         window.location = '/dashboard.php';
       },
     });

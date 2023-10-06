@@ -13,14 +13,16 @@ $(() => {
       dataType: 'json',
       contentType: 'application/json',
       data: JSON.stringify(loginData),
-      success: function (response, status, jqXHR) {
-        if (response.success || jqXHR.status === 200 || status === 200) {
+      success: function (response) {
+        if (response.success) {
           window.location = '/dashboard.php';
+        } else if (!response.success) {
+          alert('Login failed: ' + response.message);
         } else {
           alert('Login failed');
         }
       },
-      error: (err) => {
+      error: () => {
         alert('Login failed');
       },
     });

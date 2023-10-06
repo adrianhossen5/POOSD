@@ -33,9 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id = $_SESSION['id'];
     $searchResults = searchContacts($user_id);
     $response = array(
-        'success' => true, 'message' => 'Contacts retrieved successfully',
+        'success' => true, 'message' => 'Contacts retrieved successfully.',
         'contacts' => $searchResults
     );
+    http_response_code(200);
     header('Content-Type: application/json');
     echo json_encode($response);
 } else {

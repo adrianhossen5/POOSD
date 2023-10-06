@@ -2,9 +2,6 @@ $(() => {
   // Sets the table with the given contacts
   function setTable(contacts) {
     const table = $('#searchTable').empty();
-    if (contacts == undefined) {
-      window.location = '../dashboard.html';
-    }
     
     table.append(`
 		<thead style="width:100%">
@@ -48,11 +45,17 @@ $(() => {
       dataType: 'json',
       contentType: 'application/json',
       data: JSON.stringify(searchObj),
-      success: function (response, status, jqXHR) {
-        if (response.success || jqXHR.status === 200 || status === 200) {
-          setTable(response.contacts);
+      success: function (response) {
+        if (response.success) {
+          if (response.contacts.length == 0) {
+            alert('No Contacts Found');
+            window.location = '/search.php';
+          }
+          else {
+            setTable(response.contacts);
+          }
         } else {
-          alert('Contact Search Failed!');
+          alert('No Contacts Found');
           window.location = '/search.php';
         }
       },

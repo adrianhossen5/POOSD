@@ -3,7 +3,7 @@ session_start();
 include "../conn.php";
 
 if (!isset($_SESSION['id'])) {
-  $response = array('success' => false, 'message' => "Unauthorized");
+  $response = array('success' => false, 'message' => "Unauthorized.");
   http_response_code(401); // Unauthorized
   header('Content-Type: application/json');
   echo json_encode($response);
@@ -28,20 +28,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   if ($stmt->execute()) {
     if ($stmt->affected_rows === 0) {
-      $response = array('success' => false, 'message' => 'Contact not found');
-      http_response_code(404); // Not Found
+      $response = array('success' => false, 'message' => 'Contact not found.');
       header('Content-Type: application/json');
       echo json_encode($response);
       exit();
     }
-    $response = array('success' => true, 'message' => 'Contact deleted successfully');
-    http_response_code(200);
+    $response = array('success' => true, 'message' => 'Contact deleted successfully.');
   } else {
     // Handle the error gracefully and provide a specific error message
-    $response = array('success' => false, 'message' => 'Error deleting contact: ' . mysqli_error($conn));
-    http_response_code(400); // Bad Request
+    $response = array('success' => false, 'message' => 'Error deleting contact.');
   }
 
+  http_response_code(200);
   header('Content-Type: application/json');
   echo json_encode($response);
 } else {

@@ -20,8 +20,11 @@ $(() => {
       dataType: 'json',
       contentType: 'application/json',
       data: JSON.stringify(createObj),
-      success: function (response, status, jqXHR) {
-        if (response.success || jqXHR.status === 200 || status === 200) {
+      success: function (response) {
+        if (response.success) {
+          window.location = '/dashboard.php';
+        } else if (!response.success) {
+          alert('Contact Creation Failed: ' + response.message);
           window.location = '/dashboard.php';
         } else {
           alert('Contact Creation Failed!');

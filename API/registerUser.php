@@ -18,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($password !== $confirm_password) {
         $response = array('success' => false, 'message' => 'Passwords do not match!');
-        http_response_code(400); // Bad Request
     } else {
         $sql = 'SELECT username FROM users WHERE username = ?';
 
@@ -29,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($result->num_rows === 1) {
             $response = array('success' => false, 'message' => 'This username is already taken!');
-            http_response_code(400); // Bad Request
         } else {
             $stmt->close();
             $sql = 'SELECT email FROM users WHERE email = ?';
@@ -40,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($result->num_rows === 1) {
                 $response = array('success' => false, 'message' => 'This email is already taken!');
-                http_response_code(400); // Bad Request
             } else {
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     $response = array('success' => false, 'message' => 'Wrong email format!');
@@ -54,17 +51,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($stmt->execute()) {
                         $response = array('success' => true, 'message' => 'Sucessfully registered!');
-                        http_response_code(200); // OK
                     } else {
                         $response = array('success' => false, 'message' => 'Failed to register!');
-                        http_response_code(400); // Bad Request
                     }
                 }
             }
         }
     }
 
-
+    http_response_code(200); 
     header('Content-Type: application/json');
     echo json_encode($response);
 } else {

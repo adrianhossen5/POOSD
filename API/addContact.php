@@ -38,18 +38,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $check_phone_stmt->execute();
     $phone_count = $check_phone_stmt->get_result()->fetch_row()[0];
 
-    $response = array('success' => false, 'message' => "Unknown error");
+    $response = array('success' => false, 'message' => "Unknown error.");
 
     if ($email_count > 0) {
-        $response = array('success' => false, 'message' => "Email Already Exists");
-        http_response_code(400); // Bad Request
+        $response = array('success' => false, 'message' => "Email Already Exists.");
     } else if ($phone_count > 0) {
-        $response = array('success' => false, 'message' => "Phone Number Already Exists");
-        http_response_code(400); // Bad Request
+        $response = array('success' => false, 'message' => "Phone Number Already Exists.");
     } else {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $response = array('success' => false, 'message' => "Invalid Email Format");
-            http_response_code(400); // Bad Request
+            $response = array('success' => false, 'message' => "Invalid Email Format.");
         } else {
             $sql = "INSERT INTO `contacts` (`id`, `user_id`, `first_name`, `last_name`, `email`, `phone_number`) 
             VALUES (UUID(), ?, ?, ?, ?, ?)";
@@ -58,12 +55,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bind_param("sssss", $user_id, $first_name, $last_name, $email, $phone_number);
 
             if ($stmt->execute()) {
-                $response = array('success' => true, 'message' => 'Contact added successfully');
-                http_response_code(200); // OK
+                $response = array('success' => true, 'message' => 'Contact added successfully.');
             }
         }
     }
 
+    http_response_code(200);
     header('Content-Type: application/json');
     echo json_encode($response);
 } else {

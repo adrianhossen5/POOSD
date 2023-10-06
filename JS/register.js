@@ -20,10 +20,14 @@ $(() => {
       dataType: 'json',
       contentType: 'application/json',
       data: JSON.stringify(registerObj),
-      success: function (response, status, jqXHR) {
-        if (response.success || jqXHR.status === 200 || status === 200) {
+      success: function (response) {
+        if (response.success) {
           window.location = '/index.php';
-        } else {
+        } else if (!response.success) {
+          alert('Registration Failed: ' + response.message);
+          window.location = '/register.php';
+        }
+        else {
           alert('Registration Failed!');
           window.location = '/register.php';
         }

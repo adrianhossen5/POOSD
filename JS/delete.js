@@ -6,8 +6,8 @@ function deleteContact(idToDelete) {
     dataType: 'json',
     contentType: 'application/json',
     data: JSON.stringify(delObject),
-    success: function (response, status, jqXHR) {
-      if (response.success || jqXHR.status === 200 || status === 200) {
+    success: function (response) {
+      if (response.success) {
         window.location = '/dashboard.php';
       } else {
         alert('Contact Delete Failed!');
