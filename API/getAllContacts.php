@@ -7,6 +7,7 @@ if (!isset($_SESSION['id'])) {
     http_response_code(401); // Unauthorized
     header('Content-Type: application/json');
     echo json_encode($response);
+    header("location: /index.php");
     exit();
 }
 
@@ -22,15 +23,21 @@ function searchContacts($user_id)
     if ($result) {
         $searchResults = mysqli_fetch_all($result, MYSQLI_ASSOC);
         return $searchResults;
-    }
-    else {
+    } else {
         return [];
     }
 }
 
-$user_id = $_SESSION['id'];
-$searchResults = searchContacts($user_id);
-$response = array('success' => true, 'message' => 'Contacts retrieved successfully', 
-    'contacts' => $searchResults);
-header('Content-Type: application/json');
-echo json_encode($response);
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+
+    $user_id = $_SESSION['id'];
+    $searchResults = searchContacts($user_id);
+    $response = array(
+        'success' => true, 'message' => 'Contacts retrieved successfully',
+        'contacts' => $searchResults
+    );
+    header('Content-Type: application/json');
+    echo json_encode($response);
+} else {
+    header("location: /dashboard.php");
+}

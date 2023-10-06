@@ -24,12 +24,12 @@ $(() => {
         if (response.success || jqXHR.status === 200 || status === 200) {
           window.location = '../index.php';
         } else {
-          alert('Registration Failed!:' + response.message);
+          alert('Registration Failed!');
           window.location = '../register.php';
         }
       },
       error: function (error) {
-        alert('Registration Failed!:' + error.message);
+        alert('Registration Failed!');
         window.location = '../register.php';
       },
     });

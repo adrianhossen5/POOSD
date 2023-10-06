@@ -7,6 +7,7 @@ if (!isset($_SESSION['id'])) {
     http_response_code(401); // Unauthorized
     header('Content-Type: application/json');
     echo json_encode($response);
+    header("location: /index.php");
     exit();
 }
 
@@ -44,24 +45,28 @@ function getRequestInfo()
     return json_decode(file_get_contents('php://input'), true);
 }
 
-$data = getRequestInfo();
-$user_id = $_SESSION['id'];
-$searchResults = searchContacts($user_id, $data['search']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = getRequestInfo();
+    $user_id = $_SESSION['id'];
+    $searchResults = searchContacts($user_id, $data['search']);
 
-if (!empty($searchResults)) {
-    $response = array(
-        'success' => true,
-        'message' => 'Contacts retrieved successfully',
-        'contacts' => $searchResults
-    );
-    http_response_code(200); // Set HTTP status code to 200 OK
+    if (!empty($searchResults)) {
+        $response = array(
+            'success' => true,
+            'message' => 'Contacts retrieved successfully',
+            'contacts' => $searchResults
+        );
+        http_response_code(200); // Set HTTP status code to 200 OK
+    } else {
+        $response = array(
+            'success' => false,
+            'message' => 'No contacts found or an error occurred'
+        );
+        http_response_code(400); // Set HTTP status code to 404 Not Found (or another appropriate code)
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
 } else {
-    $response = array(
-        'success' => false,
-        'message' => 'No contacts found or an error occurred'
-    );
-    http_response_code(400); // Set HTTP status code to 404 Not Found (or another appropriate code)
+    header("location: /index.php");
 }
-
-header('Content-Type: application/json');
-echo json_encode($response);

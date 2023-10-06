@@ -21,15 +21,15 @@ $(() => {
       contentType: 'application/json',
       data: JSON.stringify(createObj),
       success: function (response, status, jqXHR) {
-        if (response.success || jqXHR.status === 200) {
+        if (response.success || jqXHR.status === 200 || status === 200) {
           window.location = '../dashboard.php';
         } else {
-          alert('Contact Creation Failed!:' + response.message);
+          alert('Contact Creation Failed!');
           window.location = '../dashboard.php';
         }
       },
       error: function (error) {
-        alert('Contact Creation Failed!:' + error.message);
+        alert('Contact Creation Failed!');
         window.location = '../dashboard.php';
       },
     });
