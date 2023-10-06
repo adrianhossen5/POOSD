@@ -7,7 +7,7 @@
     <script src="./JS/login.js" type=""></script>
     <link rel="stylesheet" href="styleIndex.css" />
     <header class="login-header" style="text-align: center; padding-top: 56px">
-      <h1>My Contacts Hub</h1>
+      <h1>Contastic</h1>
     </header>
   </head>
 
@@ -15,7 +15,7 @@
     <div class="container_index">
       <div class="screen">
         <div class="screen-content">
-          <form id="loginForm">
+          <form class="login" id="loginForm">
             <div class="login-field">
               <input
                 type="text"
