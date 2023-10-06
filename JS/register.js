@@ -22,15 +22,15 @@ $(() => {
       data: JSON.stringify(registerObj),
       success: function (response, status, jqXHR) {
         if (response.success || jqXHR.status === 200 || status === 200) {
-          window.location = '../index.php';
+          window.location = '/index.php';
         } else {
           alert('Registration Failed!');
-          window.location = '../register.php';
+          window.location = '/register.php';
         }
       },
       error: function (error) {
         alert('Registration Failed!');
-        window.location = '../register.php';
+        window.location = '/register.php';
       },
     });
   });

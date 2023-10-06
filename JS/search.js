@@ -53,12 +53,12 @@ $(() => {
           setTable(response.contacts);
         } else {
           alert('Contact Search Failed!');
-          window.location = '../search.php';
+          window.location = '/search.php';
         }
       },
       error: function (error) {
         alert('Contact Search Failed!');
-        window.location = '../search.php';
+        window.location = '/search.php';
       },
     });
   });

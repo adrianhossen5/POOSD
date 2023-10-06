@@ -5,7 +5,7 @@ include "../conn.php";
 if (isset($_SESSION['id'])) {
     unset($_SESSION['id']);
     session_destroy();
-    header("location: ./index.php");
+    header("location: /index.php");
 }
 
 function getRequestInfo()

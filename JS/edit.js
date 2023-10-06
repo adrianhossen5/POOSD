@@ -24,15 +24,15 @@ $(() => {
       data: JSON.stringify(editObj),
       success: function (response, status, jqXHR) {
         if (response.success || jqXHR.status === 200 || status === 200) {
-          window.location = '../dashboard.php';
+          window.location = '/dashboard.php';
         } else {
           alert('Contact Edit Failed!: ' + response.message);
-          window.location = '../dashboard.php';
+          window.location = '/dashboard.php';
         }
       },
       error: function (error) {
         alert('Contact Edit Error!: ' + error.message);
-        window.location = '../dashboard.php';
+        window.location = '/dashboard.php';
       },
     });
   });

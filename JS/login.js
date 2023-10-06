@@ -15,7 +15,7 @@ $(() => {
       data: JSON.stringify(loginData),
       success: function (response, status, jqXHR) {
         if (response.success || jqXHR.status === 200 || status === 200) {
-          window.location = './dashboard.php';
+          window.location = '/dashboard.php';
         } else {
           alert('Login failed');
         }
