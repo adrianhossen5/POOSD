@@ -60,8 +60,7 @@ if ($email_count > 0) {
 
         $result = mysqli_query($conn, $sql);
 
-        if ($stmt->execute()) {
-            // echo "New record created successfully";
+        if ($result) {
             $response = array('success' => true, 'message' => 'Contact updated successfully');
             http_response_code(200); // OK
         }

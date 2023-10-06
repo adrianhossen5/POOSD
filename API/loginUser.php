@@ -28,7 +28,7 @@ function authenticateUser($conn, $username, $password)
 }
 
 $data = getRequestInfo();
-$user_name = $data['username']; // Make sure this matches the key in your JavaScript code
+$user_name = $data['user_name']; // Make sure this matches the key in your JavaScript code
 $password = $data['password']; // Make sure this matches the key in your JavaScript code
 $errors = [];
 

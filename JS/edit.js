@@ -23,15 +23,15 @@ $(() => {
       contentType: 'application/json',
       data: JSON.stringify(editObj),
       success: function (response, status, jqXHR) {
-        if (response.success || jqXHR.status === 200) {
+        if (response.success || jqXHR.status === 200 || status === 200) {
           window.location = '../dashboard.php';
         } else {
-          alert('Contact Edit Failed!:' + response.message);
+          alert('Contact Edit Failed!: ' + response.message);
           window.location = '../dashboard.php';
         }
       },
       error: function (error) {
-        alert('Contact Edit Failed!:' + error.message);
+        alert('Contact Edit Error!: ' + error.message);
         window.location = '../dashboard.php';
       },
     });

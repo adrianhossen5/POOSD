@@ -3,7 +3,7 @@ $(() => {
     e.preventDefault();
 
     const loginData = {
-      username: $('#user_name').val(),
+      user_name: $('#user_name').val(),
       password: $('#password').val(),
     };
 
