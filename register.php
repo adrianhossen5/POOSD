@@ -11,7 +11,7 @@
       class="register-header"
       style="text-align: center; padding-top: 56px"
     >
-      <h1>My Contacts Hub</h1>
+      <h1>Contastic</h1>
     </header>
   </head>
 
@@ -68,7 +68,7 @@
             <div style="padding-left: 12px; padding-top: 24px">
               <p style="color: #fff; font-weight: 650">
                 Already have an account?
-                <a style="color: #fff" href="index.php">Log In</a>
+                <a class="login-button" style="color: #fff" href="index.php">Log In</a>
               </p>
               <i class="button-icon fas fa-chevron-right"></i>
             </div>

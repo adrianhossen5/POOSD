@@ -132,7 +132,12 @@ body {
 }
 
 .submit-button:hover {
-  border-color: #6a679e;
+  border-color: #5c5696;
+  outline: none;
+}
+
+.edit-delete-button:hover{
+  border-color: #b39ddb;
   outline: none;
 }
 
@@ -169,7 +174,7 @@ th,
 td {
   padding: 10px;
   text-align: left;
-  border-bottom: 1px solid #d4d3e8;
+  border-bottom: 1px solid #b39ddb;
 }
 
 th {

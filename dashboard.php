@@ -16,7 +16,7 @@ if (!isset($_SESSION['id'])) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="styleDashboard.css" />
-  <title>My Contacts</title>
+  <title>Contastic</title>
   <script src="./JS/jquery.js"></script>
   <script src="./JS/home.js"></script>
   <script src="./JS/delete.js"></script>
@@ -28,7 +28,7 @@ if (!isset($_SESSION['id'])) {
     }
   </script>
   <header class="header" style="text-align: center; padding-top: 56px">
-    <h1>My Contacts Hub</h1>
+    <h1>Contastic</h1>
   </header>
 </head>
 
@@ -48,9 +48,7 @@ if (!isset($_SESSION['id'])) {
             </a>
           </div>
         </form>
-        <div class='table-screen'>
         <table id="contacts" style="margin-bottom: 30px"></table>
-        </div>
       </div>
     </div>
   </div>

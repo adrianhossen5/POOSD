@@ -26,9 +26,10 @@ if (!isset($_SESSION['id'])) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <body>
-  <header class="search-header" style="text-align: center; padding-top: 56px">
-    <h1>My Contacts Hub</h1>
-  </header>
+
+    <header class="search-header" style="text-align:center; padding-top: 56px;">
+        <h1>Contastic</h1>
+    </header>
 
   <div class="container_index">
     <div class="screen" style="margin-top: 10px">

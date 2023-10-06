@@ -18,9 +18,9 @@ if (!isset($_SESSION['id'])) {
     <script src="./JS/create.js" type=""></script>
   </head>
 
-  <header class="add-new-header">
-    <h1>My Contacts Hub</h1>
-  </header>
+<header class="add-new-header">
+    <h1>Contastic</h1>
+</header>
 
   <body>
     <div class="container_index">

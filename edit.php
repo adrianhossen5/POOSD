@@ -20,7 +20,7 @@ if (!isset($_SESSION['id'])) {
     <script src="./JS/edit.js" type=""></script>
 </head>
 <header class="header" style="text-align:center; padding-top: 56px;">
-    <h1>My Contacts Hub</h1>
+    <h1>Contastic</h1>
 </header>
 
 <body>
