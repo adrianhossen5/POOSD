@@ -1,11 +1,10 @@
 <?php
-include "../conn.php";
 session_start();
+include "../conn.php";
 
-function isPostmanRequest()
+function getRequestInfo()
 {
-    return isset($_SERVER['HTTP_USER_AGENT']) && 
-        strpos($_SERVER['HTTP_USER_AGENT'], 'Postman') !== false;
+    return json_decode(file_get_contents('php://input'), true);
 }
 
 function authenticateUser($conn, $username, $password)
@@ -28,49 +27,38 @@ function authenticateUser($conn, $username, $password)
     return false;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isPostmanRequest()) {
-        echo "POST request received\n";
-    }
-    $user_name = $_POST['user_name'];
-    $password = $_POST['password'];
-    $errors = [];
+$data = getRequestInfo();
+$user_name = $data['username']; // Make sure this matches the key in your JavaScript code
+$password = $data['password']; // Make sure this matches the key in your JavaScript code
+$errors = [];
 
-    if (empty($user_name)) {
-        $errors[] = "Username is required.";
-    }
-    if (empty($password)) {
-        $errors[] = "Password is required.";
-    }
+$response = array('success' => false, 'message' => 'Login failed');
 
-    if (empty($errors)) {
-        $user_id = authenticateUser($conn, $user_name, $_POST['password']);
+if (empty($user_name)) {
+    $errors[] = "Username is required.";
+    $response = array('success' => false, 'message' => 'Login failed');
+    http_response_code(400); // Bad Request
+} else if (empty($password)) {
+    $errors[] = "Password is required.";
+    $response = array('success' => false, 'message' => 'Login failed');
+    http_response_code(400); // Bad Request
+}
 
-        if ($user_id !== false) {
-            $_SESSION['id'] = $user_id;
-            if (isPostmanRequest()) {
-                echo "Authentication successful for user id" . $user_id . "!\n";
-            }
-            echo "<script> window.location='../dashboard.php'; </script>";
-            exit();
-        } else {
-            if (isPostmanRequest()) {
-                echo "Authentication Failed!\n";
-            }
-            $error_message = "Invalid username or password";
-            echo "<script>alert('Invalid username or password'); 
-                window.location.href='../index.php'; </script>";
-            exit();
-        }
+if (empty($errors)) {
+    $user_id = authenticateUser($conn, $user_name, $password);
+
+    if ($user_id !== false) {
+        $_SESSION['id'] = $user_id;
+        $userObj['username'] = $user_name; // Make sure this matches the key in your JavaScript code
+        $userObj['id'] = $_SESSION['id'];
+        $response = array('success' => true, 'message' => 'Login successful', 'user' => $userObj);
+        http_response_code(200); // OK
     } else {
-        foreach ($errors as $error) {
-            echo "<script> window.location='../index.php'; </script>";
-            exit();
-        }
+        $error_message = "Invalid username or password";
+        $response = array('success' => false, 'message' => $error_message);
+        http_response_code(400); // Bad Request
     }
 }
-else {
-    echo "<script> window.location='../index.php';</script>";
-    exit();
-}
-?>
+
+header('Content-Type: application/json');
+echo json_encode($response);

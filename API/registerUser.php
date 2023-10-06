@@ -1,45 +1,37 @@
 <?php
 include "../conn.php";
 
-function isPostmanRequest()
+function getRequestInfo()
 {
-    return isset($_SERVER['HTTP_USER_AGENT']) && 
-        strpos($_SERVER['HTTP_USER_AGENT'], 'Postman') !== false;
+    return json_decode(file_get_contents('php://input'), true);
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isPostmanRequest()) {
-        echo "POST request received\n";
-    }
+$data = getRequestInfo();
+$username = $data['user_name'];
+$password = $data['password'];
+$confirm_password = $data["confirm_password"];
+$email = $data['email'];
 
-    $username = $_POST['user_name'];
-    $password = $_POST['password'];
-    $confirm_password = $_POST["confirm_password"];
-    $email = $_POST['email'];
-    $agree = isset($_POST['agree']) ? 1 : 0;
+$errors = [];
 
-    $errors = [];
+$response = array('success' => false, 'message' => 'Failed to register!');
 
-    if ($password !== $confirm_password) {
-        echo "<script>alert('Passwords do not match. Please try again.'); 
-            window.location='../register.php';</script>";
+if ($password !== $confirm_password) {
+    $response = array('success' => false, 'message' => 'Passwords do not match!');
+    http_response_code(400); // Bad Request
+} else {
+    $sql = 'SELECT username FROM users WHERE username = ?';
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('s', $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 1) {
+        $response = array('success' => false, 'message' => 'This username is already taken!');
+        http_response_code(400); // Bad Request
     } else {
-        $sql = 'SELECT username FROM users WHERE username = ?';
-
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('s', $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows === 1) {
-            $alert = "<script>alert('This username is already taken!'); 
-                window.location='../register.php';</script>";
-            echo $alert;
-            exit();
-        }
-
         $stmt->close();
-
         $sql = 'SELECT email FROM users WHERE email = ?';
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('s', $email);
@@ -47,47 +39,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = $stmt->get_result();
 
         if ($result->num_rows === 1) {
-            $alert = "<script>alert('This email is already taken!');
-                window.location.href='../register.php';</script>";
-            echo $alert;
-            exit();
-        }
-
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $alert = "<script>alert('Wrong email format'); 
-                window.location.href='../register.php';</script>";
-            echo $alert;
-            exit();
-        }
-
-        $stmt->close();
-
-        $sql = 'SELECT id, username, password_hash FROM users WHERE username = ?';
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = 'INSERT INTO `users` (`id`, `username`, `password_hash`, `email`) 
-        VALUES (UUID(), ?, ?, ?)';
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sss', $username, $hashed_password, $email);
-
-        if ($stmt->execute()) {
-            if (isPostmanRequest()) {
-                echo "Registration successful for " . $username . "!\n";
-            }
-
-            echo '<script> window.location="../index.php";</script>';
-            exit();
+            $response = array('success' => false, 'message' => 'This email is already taken!');
+            http_response_code(400); // Bad Request
         } else {
-            if (isPostmanRequest()) {
-                echo "Registration failed!\n";
-            }
-            echo '<script>alert("Registration failed!"); 
-                window.location.href="../register.php";</script>';
-        }
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $response = array('success' => false, 'message' => 'Wrong email format!');
+            } else {
+                $sql = 'SELECT id, username, password_hash FROM users WHERE username = ?';
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                $sql = 'INSERT INTO `users` (`id`, `username`, `password_hash`, `email`) 
+                    VALUES (UUID(), ?, ?, ?)';
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param('sss', $username, $hashed_password, $email);
 
-        $stmt->close();
+                if ($stmt->execute()) {
+                    $response = array('success' => true, 'message' => 'Sucessfully registered!');
+                    http_response_code(200); // OK
+                } else {
+                    $response = array('success' => false, 'message' => 'Failed to register!');
+                    http_response_code(400); // Bad Request
+                }
+            }
+        }
     }
 }
-else {
-    echo "<script> window.location='../register.php';</script>";
-}
-?>
+
+
+header('Content-Type: application/json');
+echo json_encode($response);
