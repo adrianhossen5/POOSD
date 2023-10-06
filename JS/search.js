@@ -49,7 +49,7 @@ $(() => {
       contentType: 'application/json',
       data: JSON.stringify(searchObj),
       success: function (response, status, jqXHR) {
-        if (response.success || jqXHR.status === 200) {
+        if (response.success || jqXHR.status === 200 || status === 200) {
           setTable(response.contacts);
         } else {
           alert('Contact Search Failed!');

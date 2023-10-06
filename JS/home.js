@@ -31,7 +31,7 @@ $(() => {
 
   $.ajax({
     url: '/API/getAllContacts.php',
-    method: 'GET',
+    method: 'POST',
     success: (response) => {
       if (response.success) {
         setTable(response.contacts);
