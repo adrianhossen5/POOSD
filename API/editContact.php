@@ -24,6 +24,21 @@ $email = mysqli_real_escape_string($conn, $data['email']);
 $phone_number = mysqli_real_escape_string($conn, $data['phone_number']);
 $contact_id = mysqli_real_escape_string($conn, $data['id']);
 
+$check_if_contact_exists_sql = 'SELECT COUNT(*) FROM `contacts` WHERE `id` = ? AND `user_id` = ?';
+$check_if_contact_exists_stmt = $conn->prepare($check_if_contact_exists_sql);
+$check_if_contact_exists_stmt->bind_param("ss", $contact_id, $user_id);
+$check_if_contact_exists_stmt->execute();
+$check_if_contact_exists_result = $check_if_contact_exists_stmt->get_result();
+$contact_count = $check_if_contact_exists_result->fetch_row()[0];
+
+if ($contact_count === 0) {
+    $response = array('success' => false, 'message' => "Contact not found");
+    http_response_code(404); // Not Found
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit();
+}
+
 $check_email_sql = 'SELECT COUNT(*) FROM `contacts` WHERE `email` = ? AND `user_id` = ? AND `id` != ?';
 $check_email_stmt = $conn->prepare($check_email_sql);
 $check_email_stmt->bind_param("sss", $email, $user_id, $contact_id);
@@ -59,10 +74,14 @@ if ($email_count > 0) {
         WHERE `id`='$contact_id'";
 
         $result = mysqli_query($conn, $sql);
+        $affected_rows = mysqli_affected_rows($conn);
 
-        if ($result) {
+        if ($affected_rows > 0) {
             $response = array('success' => true, 'message' => 'Contact updated successfully');
             http_response_code(200); // OK
+        } else {
+            $response = array('success' => false, 'message' => 'No changes were made to the contact');
+            http_response_code(200); // OK or you can use http_response_code(204); if you prefer
         }
     }
 }
