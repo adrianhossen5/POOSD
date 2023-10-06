@@ -1,5 +1,5 @@
 function deleteContact(idToDelete) {
-  var delObject = { id: idToDelete };
+  var delObject = { contact_id: idToDelete };
   $.ajax({
     url: '/API/deleteContact.php',
     method: 'POST',
