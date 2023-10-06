@@ -15,7 +15,7 @@ function searchContacts($user_id)
     global $conn;
     $sql = "SELECT id, first_name, last_name, email, phone_number FROM `contacts` WHERE user_id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $user_id);
+    $stmt->bind_param("s", $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
 

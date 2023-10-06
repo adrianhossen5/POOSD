@@ -2,6 +2,11 @@
 session_start();
 include "../conn.php";
 
+if (isset($_SESSION['id'])) {
+    session_destroy();
+    header("location: ./index.php");
+}
+
 function getRequestInfo()
 {
     return json_decode(file_get_contents('php://input'), true);

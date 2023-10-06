@@ -21,7 +21,7 @@ $(() => {
       contentType: 'application/json',
       data: JSON.stringify(registerObj),
       success: function (response, status, jqXHR) {
-        if (response.success || jqXHR.status === 200) {
+        if (response.success || jqXHR.status === 200 || status === 200) {
           window.location = '../index.php';
         } else {
           alert('Registration Failed!:' + response.message);
