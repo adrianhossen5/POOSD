@@ -15,7 +15,6 @@ function getRequestInfo()
     return json_decode(file_get_contents('php://input'), true);
 }
 
-echo "POST request received\n";
 $data = getRequestInfo();
 $user_id = $_SESSION['id'];
 $first_name = mysqli_real_escape_string($conn, $data['first_name']);
