@@ -1,0 +1,22 @@
+function deleteContact(idToDelete) {
+  var delObject = { id: idToDelete };
+  $.ajax({
+    url: '/API/deleteContact.php',
+    method: 'POST',
+    dataType: 'json',
+    contentType: 'application/json',
+    data: JSON.stringify(delObject),
+    success: function (response, status, jqXHR) {
+      if (response.success || jqXHR.status === 200) {
+        window.location = '../dashboard.php';
+      } else {
+        alert('Contact Delete Failed!:' + response.message);
+        window.location = '../dashboard.php';
+      }
+    },
+    error: function (error) {
+      alert('Contact Delete Failed!:' + error.message);
+      window.location = '../dashboard.php';
+    },
+  });
+}
