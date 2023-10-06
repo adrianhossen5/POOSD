@@ -19,11 +19,11 @@ $(() => {
         } else if (!response.success) {
           alert('Login failed: ' + response.message);
         } else {
-          alert('Login failed');
+          alert('Login failed!');
         }
       },
       error: () => {
-        alert('Login failed');
+        alert('Login failed!');
       },
     });
   });

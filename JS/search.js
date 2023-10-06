@@ -47,15 +47,15 @@ $(() => {
       data: JSON.stringify(searchObj),
       success: function (response) {
         if (response.success) {
-          if (response.contacts.length == 0) {
-            alert('No Contacts Found');
+          if (response.contacts === false) {
+            alert('No Contacts Found!');
             window.location = '/search.php';
           }
           else {
             setTable(response.contacts);
           }
         } else {
-          alert('No Contacts Found');
+          alert('Contact Search Failed!');
           window.location = '/search.php';
         }
       },

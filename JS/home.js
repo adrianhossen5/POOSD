@@ -38,7 +38,7 @@ $(() => {
       }
     },
     error: () => {
-      alert('Failed to load contacts');
+      alert('Failed to load contacts.');
     },
   });
 });

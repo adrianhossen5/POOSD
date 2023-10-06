@@ -58,8 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
     } else {
         $response = array(
-            'success' => false,
-            'message' => 'No contacts found or an error occurred.'
+            'success' => true,
+            'message' => 'No contacts found!',
+            'contacts' => false
         );
     }
 
