@@ -48,11 +48,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $response = array('success' => false, 'message' => "Invalid Email Format.");
         } else {
-            $sql = "INSERT INTO `contacts` (`id`, `user_id`, `first_name`, `last_name`, `email`, `phone_number`) 
-            VALUES (UUID(), ?, ?, ?, ?, ?)";
+            date_default_timezone_set('America/New_York');
+            $current_time = date('Y-m-d H:i:s');
+            $sql = "INSERT INTO `contacts` (`id`, `user_id`, `first_name`, `last_name`, `email`, `phone_number`, `time_created`) 
+            VALUES (UUID(), ?, ?, ?, ?, ?, ?)";
 
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssss", $user_id, $first_name, $last_name, $email, $phone_number);
+            $stmt->bind_param("ssssss", $user_id, $first_name, $last_name, $email, $phone_number, $current_time);
 
             if ($stmt->execute()) {
                 $response = array('success' => true, 'message' => 'Contact added successfully.');

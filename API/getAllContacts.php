@@ -14,7 +14,7 @@ if (!isset($_SESSION['id'])) {
 function searchContacts($user_id)
 {
     global $conn;
-    $sql = "SELECT id, first_name, last_name, email, phone_number FROM `contacts` WHERE user_id = ?";
+    $sql = "SELECT id, first_name, last_name, email, phone_number, time_created FROM `contacts` WHERE user_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $user_id);
     $stmt->execute();

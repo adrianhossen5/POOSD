@@ -51,9 +51,7 @@ if (!isset($_SESSION['id'])) {
           </div>
         </form>
       </div>
-      <div class='table-screen'>
-        <table id="searchTable" style="margin-bottom: 30px "></table>
-      </div>
+      <div id="searchDiv"></div>
     </div>
   </div>
 </body>

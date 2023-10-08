@@ -8,15 +8,15 @@ function deleteContact(idToDelete) {
     data: JSON.stringify(delObject),
     success: function (response) {
       if (response.success) {
-        window.location = '/dashboard.php';
+        window.location.reload();
       } else {
         alert('Contact Delete Failed!');
-        window.location = '/dashboard.php';
+        window.location.reload();
       }
     },
     error: function (error) {
       alert('Contact Delete Failed!');
-      window.location = '/dashboard.php';
+      window.location.reload();
     },
   });
 }
