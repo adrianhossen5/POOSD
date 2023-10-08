@@ -48,7 +48,7 @@ if (!isset($_SESSION['id'])) {
 
                     <div style="margin-top:25px;">
                         <label style="color: white; margin-left:60px;">Phone Number:</label>
-                        <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="edit-input" id="phone_number" name="phone_number" required>
+                        <input type="text" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="edit-input" id="phone_number" name="phone_number" required>
                     </div>
 
                     <div class="button-icon">
