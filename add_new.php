@@ -62,7 +62,7 @@ if (!isset($_SESSION['id'])) {
 
             <div class="add-new-field">
               <input
-                type="tel"
+                type="text"
                 pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                 maxlength="12"
                 class="add-new-input"
